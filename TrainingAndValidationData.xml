@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Sinka Khadijah Abubakar</origin>
+        <pubdate>2025</pubdate>
+        <title>Field-Validated Training Polygons for Remote Sensing-Based Land Cover Classification in Alabama Wildlife Management Areas (Summer 2024)</title>
+        <geoform>vector digital data</geoform>
+        <onlink>https://github.com/ValenteLab/Sinka-study-files</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This shapefile contains training and validation polygons used in developing a land cover classification model for wildlife management areas across Alabama. The polygons were manually digitized in Google Earth using high-resolution imagery and guided by field data collected during the summer of 2024. Each polygon represents a homogeneous land cover type, labeled according to field-verified conditions and visual interpretation.</abstract>
+      <purpose>This dataset was created to provide reference data for training and validating a supervised classification model applied to remotely sensed imagery. The training polygons ensure that model predictions are grounded in accurate, field-informed land cover information across a range of ecological conditions found in Alabama’s  wildlife management areas.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20240508</begdate>
+          <enddate>20240726</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-88.1733</westbc>
+        <eastbc>-85.3482</eastbc>
+        <northbc>35.0060</northbc>
+        <southbc>30.6205</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>User-defined</themekt>
+        <themekey>Training data</themekey>
+        <themekey>Validation data</themekey>
+        <themekey>Field-verified shapefiles</themekey>
+      </theme>
+      <place>
+        <placekt>User-defined</placekt>
+        <placekey>Perdido Wildlife Management Area</placekey>
+        <placekey>Upper State Special Opportunity Area</placekey>
+        <placekey>Fred T. Special Opportunity Area</placekey>
+        <placekey>Red hills Wildlife Management Area</placekey>
+        <placekey>Barbour Wildlife Management Area</placekey>
+        <placekey>Charles D. Kelley Autauga Wildlife Management Area</placekey>
+        <placekey>Skyline Wildlife Management Area</placekey>
+        <placekey>Freedom Hills Wildlife Management Area</placekey>
+        <placekey>Lauderdale Wildlife Management Area</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>257 S Gay St,  Apt 314B</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36830</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sinkakhadijah123@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>Alabama Department of Conservation and Natural Resources</datacred>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>The attribute accuracy of this dataset is considered high. Each polygon was assigned a land cover class based on direct field observations collected during the summer of 2024 across multiple Wildlife Management Areas in Alabama. Field data were cross-referenced with high-resolution Google Earth imagery during digitization to ensure accurate class labeling. No automated classification was used in the assignment of attributes. All attributes were manually entered and reviewed for consistency and correctness. Any uncertain or ambiguous field locations were excluded from the dataset to maintain attribute reliability.</attraccr>
+    </attracc>
+    <logic>All polygon features in this dataset were manually digitized using Google Earth, then imported and processed in ArcGIS. Topological consistency was verified using ArcGIS topology tools to ensure that all polygons are closed, non-overlapping, and free from sliver polygons or unintended gaps</logic>
+    <complete>This dataset is considered complete for the purpose of training and validating a land cover classification model for Wildlife Management Areas across the state of Alabama. Polygons were digitized only for areas with field-verified land cover observations collected during the summer of 2024. As such, the dataset includes representative samples of major land cover types observed during fieldwork but does not provide full spatial coverage of all wildlife management areas. Areas lacking reliable field data or clear imagery interpretation were intentionally excluded to preserve data quality.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Field data were collected during the summer of 2024 across selected Wildlife Management Areas in Alabama. Observers recorded dominant land cover types, vegetation characteristics, and site conditions using handheld GPS units and field data sheets. Based on these field observations, training and validation polygons were manually digitized in Google Earth using high-resolution satellite imagery to delineate homogeneous land cover patches. The digitized files were then imported into ArcGIS Pro, where they were converted to polygon shapefiles and attributed with land cover class labels consistent with field observations. Topological rules were applied in ArcGIS to ensure spatial integrity. Attribute values were reviewed for consistency and correctness. Final shapefiles were exported and used in the supervised classification model for land cover mapping.</procdesc>
+        <procdate>2024</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Sinka Khadijah Abubakar</cntper>
+              <cntorg>Auburn University</cntorg>
+            </cntperp>
+            <cntpos>Graduate Student</cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>257 S Gay St, Apt 314B</address>
+              <city>Auburn</city>
+              <state>AL</state>
+              <postal>36830</postal>
+              <country>United States</country>
+            </cntaddr>
+            <cntvoice>334-748-2378</cntvoice>
+            <cntemail>sinkakhadijah123@gmail.com</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Vector</direct>
+    <ptvctinf>
+      <sdtsterm>
+        <sdtstype>Point</sdtstype>
+        <ptvctcnt>1530</ptvctcnt>
+      </sdtsterm>
+    </ptvctinf>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <geograph>
+        <latres>0.0197779896</latres>
+        <longres>0.0234129305</longres>
+        <geogunit>Decimal seconds</geogunit>
+      </geograph>
+      <geodetic>
+        <horizdn>WGS_1984</horizdn>
+        <ellips>WGS 84</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://github.com/ValenteLab/Sinka-study-files</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20250420</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>257 S Gay St,  Apt 314B</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36830</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sinkakhadijah123@gmail.com</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>

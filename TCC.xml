@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>U.S. Forest Service</origin>
+        <pubdate>2025</pubdate>
+        <title>Tree Canopy Cover (TCC) Raster for Alabama Wildlife Management Areas (2021)</title>
+        <geoform>raster digital data</geoform>
+        <onlink>https://github.com/ValenteLab/Sinka-study-files</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset includes tree canopy cover (TCC) estimates for Wildlife Management Areas (WMAs) across the state of Alabama, derived from the 2021 National Land Cover Database (NLCD) Tree Canopy Cover layer. The TCC raster provides continuous percentage estimates (0–100%) of tree canopy coverage at 30-meter resolution. The dataset was used as a landscape predictor variable in a supervised land cover classification model.</abstract>
+      <purpose>The purpose of this dataset is to provide spatially continuous information on forest canopy density to support land cover classification, habitat modeling, and ecological analysis in Alabama’s Wildlife Management Areas. The TCC layer adds value by representing vegetation structure beyond categorical land cover classes.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>2021</caldate>
+        </sngdate>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-88.4700</westbc>
+        <eastbc>-84.8900</eastbc>
+        <northbc>35.0100</northbc>
+        <southbc>30.1900</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>geoscientificInformation</themekey>
+        <themekey>imageryBaseMapsEarthCover</themekey>
+      </theme>
+      <theme>
+        <themekt>User defined</themekt>
+        <themekey>Tree Canopy Cover</themekey>
+        <themekey>NLCD</themekey>
+        <themekey>Forest Structure</themekey>
+      </theme>
+      <place>
+        <placekt>User defined</placekt>
+        <placekey>Perdido Wildlife Management Area</placekey>
+        <placekey>Upper State Special Opportunity Area</placekey>
+        <placekey>Fred T. Special Opportunity Area</placekey>
+        <placekey>Red hills Wildlife Management Area</placekey>
+        <placekey>Barbour Wildlife Management Area</placekey>
+        <placekey>Charles D. Kelley Autauga Wildlife Management Area </placekey>
+        <placekey>Skyline Wildlife Management Area</placekey>
+        <placekey>Freedom hills Wildlife Management Area</placekey>
+        <placekey>Lauderdale Wildlife Management Area</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>257 S Gay St, Apt 314B</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36830</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sinkakhadijah123@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>TCC data were developed by the US Forest Service using high-resolution imagery and modeling techniques. Pixel values represent modeled estimates of canopy cover and were not modified during processing. Accuracy is as reported by the MRLC Consortium.</attraccr>
+    </attracc>
+    <logic>Raster alignment and projection were preserved during clipping and reprojection in ArcGIS Pro. Pixel values were verified to remain within the expected 0–100 range. The dataset was reviewed for spatial consistency with other input layers.</logic>
+    <complete>This dataset includes full coverage of NLCD Tree Canopy Cover data for all Wildlife Management Areas in Alabama. No data gaps are present within the study extent, and all pixel values are within the expected range.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>The NLCD 2021 Tree Canopy Cover raster was downloaded from the Multi-Resolution Land Characteristics (MRLC) Consortium. The dataset was imported into ArcGIS Pro and clipped to the extent of Wildlife Management Areas in Alabama. The raster was reprojected to NAD 1983 UTM Zone 16N to match other input layers. Pixel values representing canopy cover as a percentage (0–100) were retained without reclassification. The processed raster was exported for use as a continuous predictor variable in land cover classification modeling.</procdesc>
+        <procdate>20240801</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Sinka Khadijah Abubakar</cntper>
+              <cntorg>Auburn University</cntorg>
+            </cntperp>
+            <cntpos>Graduate Student </cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>257 S Gay St, Apt 314B</address>
+              <city>Auburn</city>
+              <state>AL</state>
+              <postal>36830</postal>
+              <country>United States</country>
+            </cntaddr>
+            <cntvoice>334-748-2378</cntvoice>
+            <cntemail>sinkakhadijah123@gmail.com</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Raster</direct>
+    <rastinfo>
+      <rasttype>Grid Cell</rasttype>
+      <rowcount>17093</rowcount>
+      <colcount>10304</colcount>
+      <vrtcount>1</vrtcount>
+    </rastinfo>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <mapproj>
+          <mapprojn>Albers Conical Equal Area</mapprojn>
+          <albers>
+            <stdparll>29.5</stdparll>
+            <stdparll>45.5</stdparll>
+            <longcm>-96.0</longcm>
+            <latprjo>23.0</latprjo>
+            <feast>0.0</feast>
+            <fnorth>0.0</fnorth>
+          </albers>
+        </mapproj>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>
+            <absres>39.40588139879173</absres>
+            <ordres>33.40790619991605</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>North_American_Datum_1983</horizdn>
+        <ellips>GRS 1980</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257222101004</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://github.com/ValenteLab/Sinka-study-files</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20250421</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>257 S Gay St, Apt 314B</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36830</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sinkakhadijah123@gmail.com</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>
