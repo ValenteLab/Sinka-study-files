@@ -1,0 +1,70 @@
+---
+title: "Land cover model for WMAs in Alabama"
+output: html_document
+date: "2025-04-03"
+---
+
+Loading necessary libraries
+
+```{r}
+require(groundhog)
+require(sf)
+require(tigris)
+require(geodata)
+require(dplyr)
+require(colorspace)
+require(FedData)
+groundhog.library("terra", "2024-12-01", tolerate.R.version = "4.5.0")
+require(randomForest)
+require(terra)
+require(caret)
+```
+
+
+
+Loading fitted model
+
+```{r}
+# Download the file locally first
+download.file("https://github.com/ValenteLab/Sinka-study-files/raw/main/rf_model.RData", 
+              destfile = "rf_model.RData", mode = "wb")
+
+# Now load the model
+load("rf_model.RData")
+
+# Check the object
+print(rf_model)
+```
+
+Load stacked predictors
+
+```{r}
+StackedPredictors = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/StackedPredictors.tif")
+print(StackedPredictors)
+```
+
+
+
+Predictions
+
+```{r}
+# Generate predictions for the raster stack using the trained model
+map <- terra::predict(StackedPredictors, rf_model, type = "response")
+
+# Plot the predicted land cover map
+plot(map, main = "Predicted Land Cover Map")
+```
+
+
+
+```{r}
+# Generate predictions for the raster stack using the trained model
+map2 <- terra::predict(StackedPredictors, rf_model, type = "response")
+
+# Plot the predicted land cover map
+plot(map2, main = "Predicted Land Cover Map")
+```
+
+
+
+
