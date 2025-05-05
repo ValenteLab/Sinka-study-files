@@ -8,16 +8,16 @@ Loading necessary libraries
 
 ```{r}
 require(groundhog)
-require(sf)
-require(tigris)
-require(geodata)
-require(dplyr)
-require(colorspace)
-require(FedData)
-groundhog.library("terra", "2024-12-01", tolerate.R.version = "4.5.0")
-require(randomForest)
-require(terra)
-require(caret)
+groundhog.library('sf', "2024-12-01")
+groundhog.library('tigris', "2024-12-01")
+groundhog.library('geodata', "2024-12-01")
+groundhog.library('dplyr', "2024-12-01")
+groundhog.library('colorspace', "2024-12-01")
+groundhog.library('FedData', "2024-12-01")
+groundhog.library("terra", "2024-12-01")
+groundhog.library('randomForest', "2024-12-01")
+# groundhog.library('terra', "2024-12-01")
+groundhog.library('caret', "2024-12-01")
 ```
 
 

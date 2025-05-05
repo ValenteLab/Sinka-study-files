@@ -8,17 +8,19 @@ Loading necessary libraries
 
 ```{r}
 require(groundhog)
-groundhog.library("terra", "2024-12-01", tolerate.R.version = "4.5.0")
+groundhog.library('terra', '2024-12-01')
+groundhog.library('sf', '2024-12-01')
+groundhog.library('tigris', '2024-12-01')
+groundhog.library('geodata', '2024-12-01')
+groundhog.library('dplyr', '2024-12-01')
+groundhog.library('colorspace', '2024-12-01')
+groundhog.library('FedData', '2024-12-01')
+groundhog.library('randomForest', '2024-12-01')
 # groundhog.library('terra', '2024-12-01')
-require(sf)
-require(tigris)
-require(geodata)
-require(dplyr)
-require(colorspace)
-require(FedData)
-require(randomForest)
-require(terra)
-require(caret)
+groundhog.library('caret', '2024-12-01')
+groundhog.library('glcm', '2024-12-01')
+groundhog.library('sp', '2024-12-01')
+groundhog.library('raster', '2024-12-01')
 ```
 
 
@@ -27,7 +29,7 @@ Loading study area shapefile
 
 ```{r}
 studyArea <- st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/studyArea.shp")
-plot(studyArea)
+plot(st_geometry(studyArea))
 ```
 
 
@@ -37,7 +39,7 @@ Loading field data
 ```{r}
 shp <- st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/trainingData.shp")
 
-plot(shp)        # To plot the spatial data
+plot(st_geometry(shp))        # To plot the spatial data
 summary(shp)     # To get a summary of the data
 head(shp)        # To view the first few rows of the data frame
 
@@ -55,7 +57,9 @@ print(head(coords))
 
 
 
-Getting Landsat data and spectral predictors
+Getting Landsat data and spectral predictors. To reduce storage space, Landsat imagery has been divided into a norther (upper) section and lower (southern) section.
+
+THE CODE CHUNK BELOW HERE NEEDS TO BE BETTER ANNOTATED.
 
 ```{r}
 upperLandsatData = rast("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/2024LandsatImageUpperPart.tif")
@@ -65,6 +69,8 @@ lowerLandsatData = rast("/vsicurl/https://github.com/sza0209/Sinka-study-files/r
 mosaickedLandsat <- mosaic(upperLandsatData, lowerLandsatData)
 
 landsat = mosaickedLandsat
+
+rm(lowerLandsatData, upperLandsatData, mosaickedLandsat)
 
 # Extract the necessary bands
 blue <- subset(landsat, 2)
@@ -87,8 +93,6 @@ names(gcvi) <- "GCVI"
 bai <- 1 / ((0.1 - red)^2 + (0.06 - nir)^2)
 names(bai) <- "BAI"
 
-library(glcm)
-library(raster)
 
 # Converting the SpatRaster band to RasterLayer for GLCM compatibility
 nir_band_raster <- raster(landsat[[5]]) 
@@ -109,6 +113,11 @@ texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_t
 
 # Stack the original bands and the indices together
 LandsatPredictors <- c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
+
+rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
+
+rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
+
 names(LandsatPredictors) <- c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation")
 print(LandsatPredictors)
 ```
@@ -134,6 +143,8 @@ studyAreaElev = mask(alabamaElev, studyArea)
 
 plot(studyAreaElev)
 summary(studyAreaElev)
+
+rm(alabamaElev)
 ```
 
 
@@ -165,6 +176,8 @@ landsat_utm <- project(landsat, utm_crs)
 studyAreaElev = project(studyAreaElev, utm_crs)
 tcc_utm = project(tcc, utm_crs)
 nlcd_utm = project(nlcd, utm_crs)
+
+rm(landsat, tcc, nlcd)
 ```
 
 
@@ -249,7 +262,7 @@ print(crs(predictors_stack))
 shp_transformed <- project(shp_vect, crs(predictors_stack))
 ```
 
-
+ANNOTATE HERE FOR THE CODE CHUNK BELOW IF YOU INTEND TO KEEP IT.
 
 ```{r}
 # # exporting predictors_stack
@@ -273,14 +286,14 @@ roiTraining = shp_transformed
 roiTraining$Name = as.factor(roiTraining$Name)
 ```
 
-
+ANNOTATE THIS CHUNK
 
 ```{r}
 roiTraining <- roiTraining[roiTraining$Name != "UP", ]
 unique(roiTraining$Name)
 ```
 
-
+ANNOTATE THIS CHUNK
 
 ```{r}
 predictorStack_terra <- terra::rast(predictorStack)
@@ -320,7 +333,7 @@ extractMerged$Name <- droplevels(extractMerged$Name)
 print(levels(extractMerged$Name))
 ```
 
-
+I UPDATED THE CODE BELOW BY ELIMINATING THE SECTION THAT ACTUALLY NORMALIZED THE PREDICTORS. PLEASE CLEAN THIS UP AND PROVIDE A NEW VERSION OF THE CODE.
 
 ```{r}
 #Normalizing data
@@ -337,11 +350,11 @@ continuous_vars <- setdiff(predVar, "NLCD")
 # Normalize only continuous variables in extractMerged
 extractMerged_normalized <- extractMerged
 
-for (var in continuous_vars) {
-  min_val <- min(extractMerged[[var]], na.rm = TRUE)
-  max_val <- max(extractMerged[[var]], na.rm = TRUE)
-  extractMerged_normalized[[var]] <- (extractMerged[[var]] - min_val) / (max_val - min_val)
-}
+# for (var in continuous_vars) {
+#   min_val <- min(extractMerged[[var]], na.rm = TRUE)
+#   max_val <- max(extractMerged[[var]], na.rm = TRUE)
+#   extractMerged_normalized[[var]] <- (extractMerged[[var]] - min_val) / (max_val - min_val)
+# }
 
 # Set categorical variable as factor (if not already)
 extractMerged_normalized$NLCD <- as.factor(extractMerged$NLCD)
@@ -444,6 +457,7 @@ rf_predictions <- predict(rf_model, newdata = testData_noID)
 confusionMatrix(rf_predictions, testData_noID$Name)
 ```
 
+ANNOTATE THIS SECTION BELOW AND OUTPUT A NEW VERSION OF THE FITTED MODEL TO BE THEN IMPORTED INTO THE PREDICTION SCRIPT.
 
 
 ```{r}
@@ -452,5 +466,12 @@ confusionMatrix(rf_predictions, testData_noID$Name)
 ```
 
 
+I BROUGHT THIS OVER FROM THE PREDICTION SCRIPT, SO YOU MAY WANT TO CUT IT OUT AGAIN.
 
+```{r}
+# Generate predictions for the raster stack using the trained model
+map <- terra::predict(predictorStack_terra, rf_model)
 
+# Plot the predicted land cover map
+plot(map, main = "Predicted Land Cover Map")
+```
