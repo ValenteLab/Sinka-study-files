@@ -472,6 +472,8 @@ I BROUGHT THIS OVER FROM THE PREDICTION SCRIPT, SO YOU MAY WANT TO CUT IT OUT AG
 # Generate predictions for the raster stack using the trained model
 map <- terra::predict(predictorStack_terra, rf_model)
 
+writeRaster(map, 'jvClassificationModel.tif')
+
 # Plot the predicted land cover map
 plot(map, main = "Predicted Land Cover Map")
 ```
