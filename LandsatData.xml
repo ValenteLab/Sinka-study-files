@@ -156,6 +156,26 @@
       </geodetic>
     </horizsys>
   </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>2024LandsatImage.tif</enttypl>
+        <enttypd>8 band raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.0</rdommin>
+            <rdommax>52058.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
   <distinfo>
     <distrib>
       <cntinfo>

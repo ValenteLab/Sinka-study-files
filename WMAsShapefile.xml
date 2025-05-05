@@ -131,6 +131,116 @@
       </geodetic>
     </horizsys>
   </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>studyArea.shp Attribute Table</enttypl>
+        <enttypd>Table containing attribute information associated with the data set.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>FID</attrlabl>
+        <attrdef>Internal feature number.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Shape</attrlabl>
+        <attrdef>Feature geometry.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Shape type.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Name</attrlabl><attrdef>WMA Name</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>Barbour</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Freedom Hills</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Lauderdale</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Perdido River</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Red Hills</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Autauga</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Skyline</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Upper State</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Fred T. Stimpson</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+        <attrlabl>Acres</attrlabl>
+        <attrdef>Area in Acres</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1918.2506412</rdommin>
+            <rdommax>60006.9533296</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
   <distinfo>
     <distrib>
       <cntinfo>

@@ -156,6 +156,26 @@
       </geodetic>
     </horizsys>
   </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>StackedPredictors.tif</enttypl>
+        <enttypd>17 band raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-23365.0</rdommin>
+            <rdommax>34061.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
   <distinfo>
     <distrib>
       <cntinfo>

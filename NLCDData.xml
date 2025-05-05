@@ -152,6 +152,191 @@
       </geodetic>
     </horizsys>
   </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>2024Nlcd.tif</enttypl>
+        <enttypd>Raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>OID</attrlabl>
+        <attrdef>Internal object identifier.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>11</rdommin>
+            <rdommax>95</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Count</attrlabl>
+        <attrdef>Number of raster cells with this value.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>9.0</rdommin>
+            <rdommax>431873.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Red</attrlabl>
+        <attrdef>Red</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>28</rdommin>
+            <rdommax>235</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Green</attrlabl>
+        <attrdef>Green</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0</rdommin>
+            <rdommax>223</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Blue</attrlabl>
+        <attrdef>Blue</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0</rdommin>
+            <rdommax>235</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Opacity</attrlabl>
+        <attrdef>Opacity</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>255</rdommin>
+            <rdommax>255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>NLCD_Land_</attrlabl><attrdef>Land cover</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>Open Water</edomv>
+      <edomvd>Open Water</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, Open Space</edomv>
+      <edomvd>Developed, Open Space</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, Low Intensity</edomv>
+      <edomvd>Developed, Low Intensity</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, Medium Intensity</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, High Intensity</edomv>
+      <edomvd>Developed, High Intensity</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Barren Land</edomv>
+      <edomvd>Barren Land</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Deciduous Forest</edomv>
+      <edomvd>Deciduous Forest</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Evergreen Forest</edomv>
+      <edomvd>Evergreen Forest</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Mixed Forest</edomv>
+      <edomvd>Mixed Forest</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Shrub/Scrub</edomv>
+      <edomvd>Shrub/Scrub</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Herbaceous</edomv>
+      <edomvd>Herbaceous</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Hay/Pasture</edomv>
+      <edomvd>Hay/Pasture</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Cultivated Crops</edomv>
+      <edomvd>Cultivated Crops</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Woody Wetlands</edomv>
+      <edomvd>Woody Wetlands</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Emergent Herbaceous Wetlands</edomv>
+      <edomvd>Emergent Herbaceous Wetlands</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+    </detailed>
+  </eainfo>
   <distinfo>
     <distrib>
       <cntinfo>
