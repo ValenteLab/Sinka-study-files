@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>U.S. Geological Survey</origin>
+        <pubdate>2025</pubdate>
+        <title>Landsat 9 Surface Reflectance Imagery for Wildlife Management Areas in Alabama (May–July 2024)</title>
+        <geoform>raster digital data</geoform>
+        <onlink>https://github.com/ValenteLab/Sinka-study-files</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset consists of Landsat 9 Operational Land Imager (OLI-2) surface reflectance imagery acquired between May and July 2024, covering Wildlife Management Areas (WMAs) across Alabama. The imagery was used to extract spectral bands and vegetation indices in support of a supervised land cover classification model. Surface reflectance values were derived from Tier 1 Collection 2 products and represent atmospherically corrected surface-level observations.</abstract>
+      <purpose>The imagery was used to support remote sensing-based land cover classification across Alabama’s Wildlife Management Areas. Landsat 9 surface reflectance data offers consistent, multispectral information for monitoring vegetation, habitat conditions, and land use across large areas.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20240501</begdate>
+          <enddate>20240731</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-88.4700</westbc>
+        <eastbc>-84.8900</eastbc>
+        <northbc>35.0100</northbc>
+        <southbc>30.1900</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>geoscientificInformation</themekey>
+        <themekey>imageryBaseMapsEarthCover</themekey>
+      </theme>
+      <theme>
+        <themekt>User defined</themekt>
+        <themekey>Landsat 9</themekey>
+        <themekey>Surface reflectance</themekey>
+        <themekey>Vegetation indices</themekey>
+      </theme>
+      <place>
+        <placekt>User defined</placekt>
+        <placekey>Perdido Wildlife Management Area</placekey>
+        <placekey>Upper State Special Opportunity Area</placekey>
+        <placekey>Fred T. Special Opportunity Area</placekey>
+        <placekey>Red hills Wildlife Management Area</placekey>
+        <placekey>Barbour Wildlife Management Area</placekey>
+        <placekey>Charles D. Kelley Autauga Wildlife Management Area</placekey>
+        <placekey>Skyline Wildlife Management Area</placekey>
+        <placekey>Freedom hills Wildlife Management Area</placekey>
+        <placekey>Lauderdale Wildlife Management Area</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>257 S Gay St, Apt 314B</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36830</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sinkakhadijah123@gmail.com</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Surface reflectance values were derived using USGS’s atmospheric correction algorithms for Tier 1 Collection 2 data. Vegetation indices were computed using standard equations, and results were verified visually to ensure accuracy and absence of processing artifacts. Only high-quality, cloud-free imagery was used in analyses.</attraccr>
+    </attracc>
+    <logic>All bands and derived indices were stacked and co-registered in ArcGIS Pro. The raster dataset was checked for consistent spatial resolution and projection (NAD 1983 UTM Zone 16N). Derived indices were validated to ensure correct scaling and alignment across scenes.</logic>
+    <complete>The dataset includes complete Landsat 9 surface reflectance coverage for all targeted WMAs in Alabama during the 202405–202407 period. Cloudy scenes or areas with missing data were excluded to ensure classification quality. All relevant spectral bands and indices were included.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Landsat 9 Collection 2 Surface Reflectance Tier 1 imagery was accessed through Google Earth Engine (GEE), filtered for &lt;10% cloud cover, and exported as GeoTIFF files for the study area covering Wildlife Management Areas in Alabama. The imagery, acquired between 202405 and 202407, was composited in GEE using the median of available cloud-free pixels. After export, all raster bands were imported into R, where spectral indices including NDVI, SAVI, and EVI were calculated using raster-based band math. Processed layers were stacked, rescaled to a 0–1 range, and reprojected to NAD 1983 UTM Zone 16N for use in supervised land cover classification.</procdesc>
+        <procdate>20240801</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Sinka Khadijah Abubakar</cntper>
+              <cntorg>Auburn University</cntorg>
+            </cntperp>
+            <cntpos>Graduate Student</cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>257 S Gay St, Apt 314B</address>
+              <city>Auburn</city>
+              <state>AL</state>
+              <postal>36830</postal>
+              <country>United States</country>
+            </cntaddr>
+            <cntvoice>334-748-2378</cntvoice>
+            <cntemail>sinkakhadijah123@gmail.com</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Raster</direct>
+    <rastinfo>
+      <rasttype>Grid Cell</rasttype>
+      <rowcount>16234</rowcount>
+      <colcount>8838</colcount>
+      <vrtcount>8</vrtcount>
+    </rastinfo>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <gridsys>
+          <gridsysn>Universal Transverse Mercator</gridsysn>
+          <utm>
+            <utmzone>16</utmzone>
+            <transmer>
+              <sfctrmer>0.9996</sfctrmer>
+              <longcm>-87.0</longcm>
+              <latprjo>0.0</latprjo>
+              <feast>500000.0</feast>
+              <fnorth>0.0</fnorth>
+            </transmer>
+          </utm>
+        </gridsys>
+        <planci>
+          <plance>row and column</plance>
+          <coordrep>
+            <absres>30.0</absres>
+            <ordres>30.0</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>WGS_1984</horizdn>
+        <ellips>WGS 84</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>2024LandsatImage.tif</enttypl>
+        <enttypd>8 band raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.0</rdommin>
+            <rdommax>52058.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://github.com/ValenteLab/Sinka-study-files</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20250421</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>257 S Gay St, Apt 314B</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36830</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sinkakhadijah123@gmail.com</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>

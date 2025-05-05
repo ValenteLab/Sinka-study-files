@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Alabama Department of Conservation and Natural Resources</origin>
+        <pubdate>2025</pubdate>
+        <title>Boundary Shapefile of Wildlife Management Areas (WMAs) in Alabama (2024)</title>
+        <geoform>vector digital data</geoform>
+        <onlink>https://github.com/ValenteLab/Sinka-study-files</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This shapefile contains the administrative boundaries of 9 Wildlife Management Areas (WMAs) located throughout the state of Alabama as of 2024. WMAs are publicly managed lands designated for conservation, wildlife habitat management, and recreational activities such as hunting and wildlife viewing. This dataset delineates the spatial extent of each WMA and provides attribute information such as WMA name and area.</abstract>
+      <purpose>The dataset was created to support research, planning, and spatial analysis involving wildlife conservation, land cover classification, and habitat management in Alabama. It provides a consistent and accurate representation of WMA boundaries for use in GIS-based environmental studies and decision-making.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>20240508</caldate>
+        </sngdate>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-88.1254</westbc>
+        <eastbc>-85.2769</eastbc>
+        <northbc>35.0012</northbc>
+        <southbc>30.6155</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>boundaries</themekey>
+        <themekey>environment</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Boundaries</themekey>
+      </theme>
+      <place>
+        <placekt>User defined</placekt>
+        <placekey>Perdido Wildlife Management Area</placekey>
+        <placekey>Upper State Special Opportunity Area</placekey>
+        <placekey>Fred T. Special Opportunity Area</placekey>
+        <placekey>Red hills Wildlife Management Area</placekey>
+        <placekey>Barbour Wildlife Management Area</placekey>
+        <placekey>Charles D. Kelley Autauga Wildlife Management Area</placekey>
+        <placekey>Skyline Wildlife Management Area</placekey>
+        <placekey>Freedom Hills Wildlife Management Area</placekey>
+        <placekey>Lauderdale Wildlife Management Area</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>Alabama Department of Conservation and Natural Resources</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>physical</addrtype>
+          <address>64 N. Union Street</address>
+          <city>Montgomery</city>
+          <state>AL</state>
+          <postal>36130</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-242-3486</cntvoice>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Attributes such as WMA name and area were verified from  ADCNR. Fields were reviewed for completeness, and inconsistency. </attraccr>
+    </attracc>
+    <logic>All features are closed polygons and were validated in ArcGIS Pro. Attribute fields conform to the schema defined in the source dataset and contain no null values in required fields.</logic>
+    <complete>The dataset includes all officially designated Wildlife Management Areas in Alabama as of 2024. No known boundaries are missing. Updates will be required if new WMAs are added or boundary adjustments are made after this date.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>The Wildlife Management Area (WMA) boundary shapefile was obtained from the Alabama Department of Conservation and Natural Resources (ADCNR) in 2024. The dataset was imported into ArcGIS Pro. Attribute fields were reviewed and standardized to include WMA name, area (acres), and administrative region. Polygons were checked for topological consistency using the ArcGIS topology rules “Must Not Overlap” and “Must Not Have Gaps.” The shapefile was then clipped to the study extent and saved for integration with training and validation datasets.</procdesc>
+        <procdate>2024</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Vector</direct>
+    <ptvctinf>
+      <sdtsterm>
+        <sdtstype>G-polygon</sdtstype>
+        <ptvctcnt>9</ptvctcnt>
+      </sdtsterm>
+    </ptvctinf>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <gridsys>
+          <gridsysn>Universal Transverse Mercator</gridsysn>
+          <utm>
+            <utmzone>16</utmzone>
+            <transmer>
+              <sfctrmer>0.9996</sfctrmer>
+              <longcm>-87.0</longcm>
+              <latprjo>0.0</latprjo>
+              <feast>500000.0</feast>
+              <fnorth>0.0</fnorth>
+            </transmer>
+          </utm>
+        </gridsys>
+        <planci>
+          <plance>coordinate pair</plance>
+          <coordrep>
+            <absres>0.6096</absres>
+            <ordres>0.6096</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>WGS_1984</horizdn>
+        <ellips>WGS 84</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>studyArea.shp Attribute Table</enttypl>
+        <enttypd>Table containing attribute information associated with the data set.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>FID</attrlabl>
+        <attrdef>Internal feature number.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Shape</attrlabl>
+        <attrdef>Feature geometry.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Shape type.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Name</attrlabl><attrdef>WMA Name</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>Barbour</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Freedom Hills</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Lauderdale</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Perdido River</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Red Hills</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Autauga</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Skyline</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Upper State</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Fred T. Stimpson</edomv>
+      <edomvd>
+      </edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+        <attrlabl>Acres</attrlabl>
+        <attrdef>Area in Acres</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1918.2506412</rdommin>
+            <rdommax>60006.9533296</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://github.com/ValenteLab/Sinka-study-files</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20250421</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>257 S Gay St, Apt 314B</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36830</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sinkakhadijah123@gmail.com</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>
