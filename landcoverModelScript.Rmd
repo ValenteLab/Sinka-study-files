@@ -232,6 +232,7 @@ rcl_matrix <- matrix(c(
 
 # Applying reclassification
 nlcd_reclassified <- terra::classify(nlcd_utm, rcl_matrix)
+nlcd_reclassified = as.factor(nlcd_reclassified)
 
 # Renaming the NLCD and TCC layers to a more descriptive name
 names(nlcd_reclassified) <- "NLCD"
@@ -241,7 +242,8 @@ names(tcc) <- "TCC"
 print(names(nlcd_reclassified))
 print(names(tcc_utm))       
 
-nlcd_reclassified = resample(nlcd_reclassified, tcc)
+nlcd_reclassified = resample(nlcd_reclassified, tcc, method='near')
+
 ```
 
 
@@ -299,6 +301,7 @@ ANNOTATE THIS CHUNK
 predictorStack_terra <- terra::rast(predictorStack)
 extract <- terra::extract(predictorStack_terra, roiTraining)
 head(extract)
+unique(values(tmp))
 ```
 
 

@@ -150,8 +150,7 @@
         <attrlabl>Shape</attrlabl>
         <attrdef>Feature geometry.</attrdef>
         <attrdefs>ESRI</attrdefs>
-        <attrdomv>
-          <udom>Shape type.</udom>
+        <attrdomv><udom>Shape type.</udom>
         </attrdomv>
       </attr>
       <attr>
@@ -280,10 +279,10 @@
         <cntpos>Graduate Student</cntpos>
         <cntaddr>
           <addrtype>mailing and physical</addrtype>
-          <address>257 S Gay St, Apt 314B</address>
+          <address>602 Duncan Dr.</address>
           <city>Auburn</city>
           <state>AL</state>
-          <postal>36830</postal>
+          <postal>36849</postal>
           <country>United States</country>
         </cntaddr>
         <cntvoice>334-748-2378</cntvoice>

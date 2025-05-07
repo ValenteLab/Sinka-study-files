@@ -70,10 +70,10 @@
         <cntpos>Graduate Student</cntpos>
         <cntaddr>
           <addrtype>mailing and physical</addrtype>
-          <address>257 S Gay St,  Apt 314B</address>
+          <address>602 Duncan Dr.</address>
           <city>Auburn</city>
           <state>AL</state>
-          <postal>36830</postal>
+          <postal>36849</postal>
           <country>United States</country>
         </cntaddr>
         <cntvoice>334-748-2378</cntvoice>
@@ -101,10 +101,10 @@
             <cntpos>Graduate Student</cntpos>
             <cntaddr>
               <addrtype>mailing and physical</addrtype>
-              <address>257 S Gay St, Apt 314B</address>
+              <address>602 Duncan Dr.</address>
               <city>Auburn</city>
               <state>AL</state>
-              <postal>36830</postal>
+              <postal>36849</postal>
               <country>United States</country>
             </cntaddr>
             <cntvoice>334-748-2378</cntvoice>
@@ -157,8 +157,7 @@
         <attrlabl>Shape</attrlabl>
         <attrdef>Feature geometry.</attrdef>
         <attrdefs>ESRI</attrdefs>
-        <attrdomv>
-          <udom>Shape type.</udom>
+        <attrdomv><udom>Shape type.</udom>
         </attrdomv>
       </attr>
       <attr>
@@ -273,8 +272,7 @@
         <attrlabl>SymbolID</attrlabl>
         <attrdef>Symbol ID</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>0</rdommin>
             <rdommax>0</rdommax>
           </rdom>
@@ -284,8 +282,7 @@
         <attrlabl>AltMode</attrlabl>
         <attrdef>Alt Mode</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>0</rdommin>
             <rdommax>0</rdommax>
           </rdom>
@@ -295,8 +292,7 @@
         <attrlabl>Base</attrlabl>
         <attrdef>Base</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>0.0</rdommin>
             <rdommax>0.0</rdommax>
           </rdom>
@@ -306,8 +302,7 @@
         <attrlabl>Clamped</attrlabl>
         <attrdef>Clamped</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>-1</rdommin>
             <rdommax>-1</rdommax>
           </rdom>
@@ -317,39 +312,49 @@
         <attrlabl>Extruded</attrlabl>
         <attrdef>Extruded</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>0</rdommin>
             <rdommax>0</rdommax>
           </rdom>
         </attrdomv>
       </attr>
       <attr>
-  <attrlabl>Snippet</attrlabl><attrdef>Snippet</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
-    <edom>
-      <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
-      <edomvd>
-      </edomvd>
-      <edomvds>Producer defined</edomvds>
-    </edom>
-  </attrdomv>
-</attr>
+        <attrlabl>Snippet</attrlabl>
+        <attrdef>Snippet</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
+  <edomvd>
+  </edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv>
+          <udom/>
+        </attrdomv>
+      </attr>
       <attr>
-  <attrlabl>PopupInfo</attrlabl><attrdef>Pop-up Info</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
-    <edom>
-      <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
-      <edomvd>
-      </edomvd>
-      <edomvds>Producer defined</edomvds>
-    </edom>
-  </attrdomv>
-</attr>
+        <attrlabl>PopupInfo</attrlabl>
+        <attrdef>Pop-up Info</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
+  <edomvd>
+  </edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv>
+          <udom/>
+        </attrdomv>
+      </attr>
       <attr>
         <attrlabl>Shape_Leng</attrlabl>
         <attrdef>Shape Length</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>0.000809938170977</rdommin>
             <rdommax>0.0255740546435</rdommax>
           </rdom>
@@ -359,8 +364,7 @@
         <attrlabl>Shape_Area</attrlabl>
         <attrdef>Shape Area</attrdef>
         <attrdefs>Producer Defined</attrdefs>
-        <attrdomv>
-          <rdom>
+        <attrdomv><rdom>
             <rdommin>2.90352171947e-08</rdommin>
             <rdommax>3.87033010666e-05</rdommax>
           </rdom>
@@ -407,10 +411,10 @@
         <cntpos>Graduate Student</cntpos>
         <cntaddr>
           <addrtype>mailing and physical</addrtype>
-          <address>257 S Gay St,  Apt 314B</address>
+          <address>602 Duncan Dr.</address>
           <city>Auburn</city>
           <state>AL</state>
-          <postal>36830</postal>
+          <postal>36849</postal>
           <country>United States</country>
         </cntaddr>
         <cntvoice>334-748-2378</cntvoice>
