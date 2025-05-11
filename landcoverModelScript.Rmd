@@ -16,7 +16,6 @@ groundhog.library('dplyr', '2024-12-01')
 groundhog.library('colorspace', '2024-12-01')
 groundhog.library('FedData', '2024-12-01')
 groundhog.library('randomForest', '2024-12-01')
-# groundhog.library('terra', '2024-12-01')
 groundhog.library('caret', '2024-12-01')
 groundhog.library('glcm', '2024-12-01')
 groundhog.library('sp', '2024-12-01')
@@ -70,14 +69,13 @@ mosaickedLandsat <- mosaic(upperLandsatData, lowerLandsatData)
 
 landsat = mosaickedLandsat
 
-rm(lowerLandsatData, upperLandsatData, mosaickedLandsat)
-
-# Extract the necessary bands
+# Extracting the necessary bands
 blue <- subset(landsat, 2)
 green <- subset(landsat, 3)
 red <- subset(landsat, 4)
 nir <- subset(landsat, 5)
 
+#Calculating spectral indices
 ndvi <- (nir - red) / (nir + red)
 names(ndvi) <- "NDVI"
 
@@ -97,6 +95,7 @@ names(bai) <- "BAI"
 # Converting the SpatRaster band to RasterLayer for GLCM compatibility
 nir_band_raster <- raster(landsat[[5]]) 
 
+#Calculating textural indices
 contrast_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "contrast")
 homogeneity_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "homogeneity")
 entropy_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "entropy")
@@ -111,12 +110,12 @@ correlation_texture <- rast(correlation_texture)
 
 texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_texture, correlation_texture)
 
-# Stack the original bands and the indices together
+# Stacking the original bands and the indices together
 LandsatPredictors <- c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
 
-rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
-
-rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
+# rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
+# 
+# rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
 
 names(LandsatPredictors) <- c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation")
 print(LandsatPredictors)
@@ -144,7 +143,7 @@ studyAreaElev = mask(alabamaElev, studyArea)
 plot(studyAreaElev)
 summary(studyAreaElev)
 
-rm(alabamaElev)
+# rm(alabamaElev)
 ```
 
 
@@ -175,9 +174,7 @@ print(st_crs(studyArea_utm))
 landsat_utm <- project(landsat, utm_crs)
 studyAreaElev = project(studyAreaElev, utm_crs)
 tcc_utm = project(tcc, utm_crs)
-nlcd_utm = project(nlcd, utm_crs)
-
-rm(landsat, tcc, nlcd)
+nlcd_utm <- project(nlcd, utm_crs, method = "near")
 ```
 
 
@@ -191,10 +188,11 @@ studyAreaElev_aligned <- crop(studyAreaElev, common_extent)
 studyAreaElev_aligned <- resample(studyAreaElev_aligned, landsat_utm)
 
 nlcd_aligned = crop(nlcd_utm, common_extent)
-nlcd_aligned = resample(nlcd_aligned, landsat_utm)
+nlcd_aligned <- resample(nlcd_aligned, landsat_utm, method = "near")
 
 tcc_utm = crop(tcc_utm, common_extent)
 tcc_utm <- resample(tcc_utm, landsat_utm)
+tcc_utm <- round(tcc_utm)
 
 ext(nlcd_aligned)
 ext(landsat_utm)
@@ -204,46 +202,12 @@ ext(LandsatPredictors)
 ```
 
 
-
-Reclassifying NLCD and TCC
-
 ```{r}
-# Creating a reclassified raster focusing on the "Value" attribute for tcc and nlcd
-tcc <- classify(tcc_utm, rcl = matrix(c(0, 100, 1), ncol = 2, byrow = TRUE)) 
+unique_vals <- unique(values(nlcd_aligned))
+print(unique_vals)
 
-# Defining reclassification matrix based on NLCD "Value"
-rcl_matrix <- matrix(c(
-  0, 11, 11,  # Open Water
-  21, 21, 21, # Developed, Open Space
-  22, 22, 22, # Developed, Low Intensity
-  23, 23, 23, # Developed, Medium Intensity
-  24, 24, 24, # Developed, High Intensity
-  31, 31, 31, # Barren Land
-  41, 41, 41, # Deciduous Forest
-  42, 42, 42, # Evergreen Forest
-  43, 43, 43, # Mixed Forest
-  52, 52, 52, # Shrub/Scrub
-  71, 71, 71, # Herbaceous
-  81, 81, 81, # Hay/Pasture
-  82, 82, 82, # Cultivated Crops
-  90, 90, 90, # Woody Wetlands
-  95, 95, 95  # Emergent Herbaceous Wetlands
-), ncol = 3, byrow = TRUE)
-
-# Applying reclassification
-nlcd_reclassified <- terra::classify(nlcd_utm, rcl_matrix)
-nlcd_reclassified = as.factor(nlcd_reclassified)
-
-# Renaming the NLCD and TCC layers to a more descriptive name
-names(nlcd_reclassified) <- "NLCD"
-names(tcc) <- "TCC"
-
-# Confirming the new layer names
-print(names(nlcd_reclassified))
-print(names(tcc_utm))       
-
-nlcd_reclassified = resample(nlcd_reclassified, tcc, method='near')
-
+unique_vals <- unique(values(tcc_utm))
+print(unique_vals)
 ```
 
 
@@ -251,7 +215,7 @@ nlcd_reclassified = resample(nlcd_reclassified, tcc, method='near')
 Stacking the predictors
 
 ```{r}
-predictors_stack <- c(LandsatPredictors, studyAreaElev_aligned, nlcd_reclassified, tcc) 
+predictors_stack <- c(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm) 
 
 # Converting shp to SpatVector
 shp_vect <- vect(shp)
@@ -301,7 +265,6 @@ ANNOTATE THIS CHUNK
 predictorStack_terra <- terra::rast(predictorStack)
 extract <- terra::extract(predictorStack_terra, roiTraining)
 head(extract)
-unique(values(tmp))
 ```
 
 
@@ -336,51 +299,14 @@ extractMerged$Name <- droplevels(extractMerged$Name)
 print(levels(extractMerged$Name))
 ```
 
-I UPDATED THE CODE BELOW BY ELIMINATING THE SECTION THAT ACTUALLY NORMALIZED THE PREDICTORS. PLEASE CLEAN THIS UP AND PROVIDE A NEW VERSION OF THE CODE.
-
-```{r}
-#Normalizing data
-
-# Define the response variable
-respVar <- c("Name")
-
-# Define the predictor variables based on your data
-predVar <- c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation", "USA_elv_msk", "NLCD", "TCC")
-
-# Identify continuous and categorical variables
-continuous_vars <- setdiff(predVar, "NLCD")
-
-# Normalize only continuous variables in extractMerged
-extractMerged_normalized <- extractMerged
-
-# for (var in continuous_vars) {
-#   min_val <- min(extractMerged[[var]], na.rm = TRUE)
-#   max_val <- max(extractMerged[[var]], na.rm = TRUE)
-#   extractMerged_normalized[[var]] <- (extractMerged[[var]] - min_val) / (max_val - min_val)
-# }
-
-# Set categorical variable as factor (if not already)
-extractMerged_normalized$NLCD <- as.factor(extractMerged$NLCD)
-
-# Convert NLCD from factor to numeric, round the values, and convert back to factor if needed
-extractMerged_normalized$NLCD <- as.numeric(as.character(extractMerged_normalized$NLCD))
-extractMerged_normalized$NLCD <- round(extractMerged_normalized$NLCD)
-extractMerged_normalized$NLCD <- as.factor(extractMerged_normalized$NLCD)
-
-# View the unique values and their counts in the NLCD column
-table(extractMerged_normalized$NLCD)
-
-# Convert NLCD from factor to numeric, and then round
-extractMerged_normalized$NLCD <- as.numeric(as.character(extractMerged_normalized$NLCD))
-```
 
 
 
 ```{r}
 set.seed(1234) 
-trainIndex <- caret::createDataPartition(extractMerged_normalized$Name,list = FALSE,p=0.7)
-trainData <- extractMerged_normalized[trainIndex,]  # 70% for training Data
-testData <- extractMerged_normalized[-trainIndex,] # 30% for testing Data
+trainIndex <- caret::createDataPartition(extractMerged$Name,list = FALSE,p=0.7)
+trainData <- extractMerged[trainIndex,]  # 70% for training Data
+testData <- extractMerged[-trainIndex,] # 30% for testing Data
 ```
 
 
@@ -473,9 +399,11 @@ I BROUGHT THIS OVER FROM THE PREDICTION SCRIPT, SO YOU MAY WANT TO CUT IT OUT AG
 
 ```{r}
 # Generate predictions for the raster stack using the trained model
-map <- terra::predict(predictorStack_terra, rf_model)
+names(predictors_stack)[names(predictors_stack) == "2024Nlcd"] <- "X2024Nlcd"
 
-writeRaster(map, 'jvClassificationModel.tif')
+map <- terra::predict(predictors_stack, rf_model)
+
+#writeRaster(map, 'jvClassificationModel.tif')
 
 # Plot the predicted land cover map
 plot(map, main = "Predicted Land Cover Map")
