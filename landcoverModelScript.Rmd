@@ -7,6 +7,7 @@ date: "2025-04-03"
 Loading necessary libraries
 
 ```{r}
+rm(list=ls())
 require(groundhog)
 groundhog.library('terra', '2024-12-01')
 groundhog.library('sf', '2024-12-01')
@@ -113,11 +114,11 @@ texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_t
 # Stacking the original bands and the indices together
 LandsatPredictors <- c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
 
-# rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
-# 
-# rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
+rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
 
-names(LandsatPredictors) <- c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation")
+rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
+
+names(LandsatPredictors) = c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation")
 print(LandsatPredictors)
 ```
 
@@ -143,7 +144,7 @@ studyAreaElev = mask(alabamaElev, studyArea)
 plot(studyAreaElev)
 summary(studyAreaElev)
 
-# rm(alabamaElev)
+rm(alabamaElev)
 ```
 
 
@@ -189,6 +190,7 @@ studyAreaElev_aligned <- resample(studyAreaElev_aligned, landsat_utm)
 
 nlcd_aligned = crop(nlcd_utm, common_extent)
 nlcd_aligned <- resample(nlcd_aligned, landsat_utm, method = "near")
+nlcd_aligned = as.factor(nlcd_aligned)
 
 tcc_utm = crop(tcc_utm, common_extent)
 tcc_utm <- resample(tcc_utm, landsat_utm)
@@ -216,6 +218,11 @@ Stacking the predictors
 
 ```{r}
 predictors_stack <- c(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm) 
+predictors_stack <- predictors_stack[[-14]]
+
+rm(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm)
+rm(tcc, studyAreaElev)
+rm(landsat, landsat_utm, lowerLandsatData, mosaickedLandsat)
 
 # Converting shp to SpatVector
 shp_vect <- vect(shp)
@@ -246,6 +253,10 @@ Model building
 ```{r}
 predictorStack = raster::stack(predictors_stack)
 print(predictorStack)  
+predictorStack@layers[[15]] = as.factor(predictorStack@layers[[15]])
+# predictorStack = dropLayer(predictorStack, 14)
+
+
 roiTraining = shp_transformed
 
 #converting Class to factor(to assign levels to the response)
@@ -263,6 +274,7 @@ ANNOTATE THIS CHUNK
 
 ```{r}
 predictorStack_terra <- terra::rast(predictorStack)
+predictorStack_terra$X2024Nlcd = as.factor(predictorStack_terra$X2024Nlcd)
 extract <- terra::extract(predictorStack_terra, roiTraining)
 head(extract)
 ```
@@ -391,8 +403,12 @@ ANNOTATE THIS SECTION BELOW AND OUTPUT A NEW VERSION OF THE FITTED MODEL TO BE T
 
 ```{r}
 # Save the rf_model object as an RData file
-#save(rf_model, file = "C:/Users/sza0209/OneDrive - Auburn University/Documents/MSc/Thesis/Study #1/rf_model2.RData")
+save(rf_model, file = "test.RData")
+# writeRaster(predictors_stack, filename='predictors_stack.tif', overwrite=T)
+# raster::writeRaster(predictorStack, filename='predictorStack.tif', format='GTiff', overwrite=T)
+# writeRaster(predictorStack_terra, filename='predictorStack_terra.tif', overwrite=T)
 ```
+
 
 
 I BROUGHT THIS OVER FROM THE PREDICTION SCRIPT, SO YOU MAY WANT TO CUT IT OUT AGAIN.
@@ -400,10 +416,11 @@ I BROUGHT THIS OVER FROM THE PREDICTION SCRIPT, SO YOU MAY WANT TO CUT IT OUT AG
 ```{r}
 # Generate predictions for the raster stack using the trained model
 names(predictors_stack)[names(predictors_stack) == "2024Nlcd"] <- "X2024Nlcd"
+# names(predictors_stack)[16] = 'X2024Nlcd'
 
-map <- terra::predict(predictors_stack, rf_model)
+map <- terra::predict(predictorStack_terra, rf_model)
 
-#writeRaster(map, 'jvClassificationModel.tif')
+writeRaster(map, 'jvClassificationModel.tif', overwrite=T)
 
 # Plot the predicted land cover map
 plot(map, main = "Predicted Land Cover Map")
