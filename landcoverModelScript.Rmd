@@ -96,6 +96,7 @@ names(bai) <- "BAI"
 # Converting the SpatRaster band to RasterLayer for GLCM compatibility
 nir_band_raster <- raster(landsat[[5]]) 
 
+
 #Calculating textural indices
 contrast_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "contrast")
 homogeneity_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "homogeneity")
@@ -111,8 +112,10 @@ correlation_texture <- rast(correlation_texture)
 
 texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_texture, correlation_texture)
 
+
 # Stacking the original bands and the indices together
 LandsatPredictors <- c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
+
 
 rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
 
