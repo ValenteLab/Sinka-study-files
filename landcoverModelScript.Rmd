@@ -24,11 +24,10 @@ groundhog.library('raster', '2024-12-01')
 ```
 
 
-
 Loading study area shapefile
 
 ```{r}
-studyArea <- st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/studyArea.shp")
+studyArea = st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/studyArea.shp")
 plot(st_geometry(studyArea))
 ```
 
@@ -37,19 +36,19 @@ plot(st_geometry(studyArea))
 Loading field data
 
 ```{r}
-shp <- st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/trainingData.shp")
+shp = st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/trainingData.shp")
 
 plot(st_geometry(shp))        # To plot the spatial data
 summary(shp)     # To get a summary of the data
 head(shp)        # To view the first few rows of the data frame
 
 # Check the coordinates output
-coords <- st_coordinates(shp)
+coords = st_coordinates(shp)
 print(head(coords))
 print(dim(coords))
 
-coords <- st_coordinates(shp)
-coords <- coords[, 1:2]  # Select only the first two columns (X and Y)
+coords = st_coordinates(shp)
+coords = coords[, 1:2]  # Select only the first two columns (X and Y)
 
 # Checking to ensure the matrix is correct
 print(head(coords))
@@ -57,64 +56,69 @@ print(head(coords))
 
 
 
-Getting Landsat data and spectral predictors. To reduce storage space, Landsat imagery has been divided into a norther (upper) section and lower (southern) section.
+Getting Landsat data, spectral and texttural predictors. To reduce storage space, Landsat imagery has been divided into a norther (upper) section and lower (southern) section.
 
-THE CODE CHUNK BELOW HERE NEEDS TO BE BETTER ANNOTATED.
 
 ```{r}
+# Loading divided Landsat image from github
 upperLandsatData = rast("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/2024LandsatImageUpperPart.tif")
 lowerLandsatData = rast("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/2024LandsatImageLowerPart.tif")
 
 # Mosaic the two rasters
-mosaickedLandsat <- mosaic(upperLandsatData, lowerLandsatData)
+mosaickedLandsat = mosaic(upperLandsatData, lowerLandsatData)
 
 landsat = mosaickedLandsat
 
-# Extracting the necessary bands
-blue <- subset(landsat, 2)
-green <- subset(landsat, 3)
-red <- subset(landsat, 4)
-nir <- subset(landsat, 5)
+# Extracting the necessary Landsat bands (blue = band 2, green = band 3, red = band 4, nir = band 5)
+blue = subset(landsat, 2)
+green = subset(landsat, 3)
+red = subset(landsat, 4)
+nir = subset(landsat, 5)
 
-#Calculating spectral indices
-ndvi <- (nir - red) / (nir + red)
-names(ndvi) <- "NDVI"
+#Calculating spectral indices using extracted Landsat bands
+#Normalized difference vegetation index (NDVI)
+ndvi = (nir - red) / (nir + red)
+names(ndvi) = "NDVI"
 
-savi <- ((nir - red) / (nir + red + 0.5)) * 1.5
-names(savi) <- "SAVI"
+#Soil-adjusted vegetation index (SAVI)
+savi = ((nir - red) / (nir + red + 0.5)) * 1.5
+names(savi) = "SAVI"
 
-evi <- 2.5 * ((nir - red) / (nir + 6 * red - 7.5 * blue + 1))
-names(evi) <- "EVI"
+#Enhanced vegetation index (EVI)
+evi = 2.5 * ((nir - red) / (nir + 6 * red - 7.5 * blue + 1))
+names(evi) = "EVI"
 
+#Green chlorophyll vegetation index
 gcvi <- (nir / green) - 1
-names(gcvi) <- "GCVI"
+names(gcvi) = "GCVI"
 
-bai <- 1 / ((0.1 - red)^2 + (0.06 - nir)^2)
-names(bai) <- "BAI"
+#Burned area index
+bai = 1 / ((0.1 - red)^2 + (0.06 - nir)^2)
+names(bai) = "BAI"
 
 
 # Converting the SpatRaster band to RasterLayer for GLCM compatibility
-nir_band_raster <- raster(landsat[[5]]) 
+nir_band_raster = raster(landsat[[5]]) 
 
+#Calculating textural indices in a 3x3 moving window
+contrast_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "contrast")
+homogeneity_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "homogeneity")
+entropy_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "entropy")
+mean_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "mean")
+correlation_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "correlation")
 
-#Calculating textural indices
-contrast_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "contrast")
-homogeneity_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "homogeneity")
-entropy_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "entropy")
-mean_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "mean")
-correlation_texture <- glcm(nir_band_raster, window = c(3, 3), statistics = "correlation")
+# Converting texture rasters back to SpatRaster
+contrast_texture = rast(contrast_texture)  
+homogeneity_texture = rast(homogeneity_texture)
+entropy_texture = rast(entropy_texture)
+mean_texture = rast(mean_texture)
+correlation_texture = rast(correlation_texture)
 
-contrast_texture <- rast(contrast_texture)  
-homogeneity_texture <- rast(homogeneity_texture)
-entropy_texture <- rast(entropy_texture)
-mean_texture <- rast(mean_texture)
-correlation_texture <- rast(correlation_texture)
-
+#stacking texture indices
 texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_texture, correlation_texture)
 
-
 # Stacking the original bands and the indices together
-LandsatPredictors <- c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
+LandsatPredictors = c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
 
 
 rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
@@ -130,8 +134,8 @@ print(LandsatPredictors)
 Getting Elevation Data for study area
 
 ```{r}
-states_data <- states(cb = TRUE)
-alabama <- states_data %>% 
+states_data = states(cb = TRUE)
+alabama = states_data %>% 
   filter(NAME == 'Alabama')
 
 usaElev = elevation_30s(country='USA', path=tempdir())
@@ -139,7 +143,7 @@ alabama = st_transform(alabama, st_crs(usaElev))
 alabamaElev = crop(usaElev, alabama)
 
 # Reprojecting studyArea to match the CRS of usaElev
-studyArea <- st_transform(studyArea, crs(usaElev))
+studyArea = st_transform(studyArea, crs(usaElev))
 
 # Masking
 studyAreaElev = mask(alabamaElev, studyArea)
@@ -155,7 +159,7 @@ rm(alabamaElev)
 Getting nlcd and tcc data for study area
 
 ```{r}
-nlcd <- rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/2024Nlcd.tif")
+nlcd = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/2024Nlcd.tif")
 plot(nlcd)
 tcc = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/TCC2021.tif")
 plot(tcc)
@@ -166,19 +170,19 @@ plot(tcc)
 Reprojecting the rasters to the same coordinate system (UTM)
 
 ```{r}
-utm_crs <- "EPSG:32616"
+utm_crs = "EPSG:32616"
 
 # Reprojecting the study area to UTM
-studyArea_utm <- st_transform(studyArea, crs = utm_crs)
+studyArea_utm = st_transform(studyArea, crs = utm_crs)
 
 # Checkng CRS of the study area after transformation
 print(st_crs(studyArea_utm))
 
 # Reprojectng the rasters to UTM
-landsat_utm <- project(landsat, utm_crs)
+landsat_utm = project(landsat, utm_crs)
 studyAreaElev = project(studyAreaElev, utm_crs)
 tcc_utm = project(tcc, utm_crs)
-nlcd_utm <- project(nlcd, utm_crs, method = "near")
+nlcd_utm = project(nlcd, utm_crs, method = "near")
 ```
 
 
@@ -186,18 +190,18 @@ nlcd_utm <- project(nlcd, utm_crs, method = "near")
 Aligning all rasters to the same extent
 
 ```{r}
-common_extent <- ext(landsat_utm)
+common_extent = ext(landsat_utm)
 
-studyAreaElev_aligned <- crop(studyAreaElev, common_extent)
-studyAreaElev_aligned <- resample(studyAreaElev_aligned, landsat_utm)
+studyAreaElev_aligned = crop(studyAreaElev, common_extent)
+studyAreaElev_aligned = resample(studyAreaElev_aligned, landsat_utm)
 
 nlcd_aligned = crop(nlcd_utm, common_extent)
-nlcd_aligned <- resample(nlcd_aligned, landsat_utm, method = "near")
+nlcd_aligned = resample(nlcd_aligned, landsat_utm, method = "near")
 nlcd_aligned = as.factor(nlcd_aligned)
 
 tcc_utm = crop(tcc_utm, common_extent)
-tcc_utm <- resample(tcc_utm, landsat_utm)
-tcc_utm <- round(tcc_utm)
+tcc_utm = resample(tcc_utm, landsat_utm)
+tcc_utm = round(tcc_utm)
 
 ext(nlcd_aligned)
 ext(landsat_utm)
@@ -208,10 +212,10 @@ ext(LandsatPredictors)
 
 
 ```{r}
-unique_vals <- unique(values(nlcd_aligned))
+unique_vals = unique(values(nlcd_aligned))
 print(unique_vals)
 
-unique_vals <- unique(values(tcc_utm))
+unique_vals = unique(values(tcc_utm))
 print(unique_vals)
 ```
 
@@ -220,34 +224,33 @@ print(unique_vals)
 Stacking the predictors
 
 ```{r}
-predictors_stack <- c(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm) 
-predictors_stack <- predictors_stack[[-14]]
+predictors_stack = c(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm) 
+predictors_stack = predictors_stack[[-14]]
 
 rm(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm)
 rm(tcc, studyAreaElev)
 rm(landsat, landsat_utm, lowerLandsatData, mosaickedLandsat)
 
 # Converting shp to SpatVector
-shp_vect <- vect(shp)
+shp_vect = vect(shp)
 
 # checking CRS of both the shapefile (SpatVector) and the raster stack
 print(crs(shp_vect))
 print(crs(predictors_stack))
 
 # Transform the CRS of the shapefile to match the raster stack
-shp_transformed <- project(shp_vect, crs(predictors_stack))
+shp_transformed = project(shp_vect, crs(predictors_stack))
 ```
 
-ANNOTATE HERE FOR THE CODE CHUNK BELOW IF YOU INTEND TO KEEP IT.
+Exporting stacked predictors 
 
 ```{r}
-# # exporting predictors_stack
-# output_path <- "C:/Users/sza0209/OneDrive - Auburn University/Documents/MSc/Thesis/Study #1/StackedPredictors.tif"
-# 
-# # Export the raster stack as a GeoTIFF
-# writeRaster(predictors_stack, filename = output_path, overwrite = TRUE)
-```
+# exporting predictors_stack
+output_path <- "C:/Users/sza0209/OneDrive - Auburn University/Documents/MSc/Thesis/Study #1/StackedPredictors.tif"
 
+# Export the raster stack as a GeoTIFF
+writeRaster(predictors_stack, filename = output_path, overwrite = TRUE)
+```
 
 
 
@@ -266,19 +269,20 @@ roiTraining = shp_transformed
 roiTraining$Name = as.factor(roiTraining$Name)
 ```
 
-ANNOTATE THIS CHUNK
+
+Removing unwanted class from training data
 
 ```{r}
-roiTraining <- roiTraining[roiTraining$Name != "UP", ]
+roiTraining = roiTraining[roiTraining$Name != "UP", ]
 unique(roiTraining$Name)
 ```
 
-ANNOTATE THIS CHUNK
+Extracting raster values for training and validation data
 
 ```{r}
-predictorStack_terra <- terra::rast(predictorStack)
+predictorStack_terra = terra::rast(predictorStack)
 predictorStack_terra$X2024Nlcd = as.factor(predictorStack_terra$X2024Nlcd)
-extract <- terra::extract(predictorStack_terra, roiTraining)
+extract = terra::extract(predictorStack_terra, roiTraining)
 head(extract)
 ```
 
@@ -286,48 +290,48 @@ head(extract)
 
 ```{r}
 # Add an ID column to roiTraining based on row numbers
-roiTraining$ID <- 1:nrow(roiTraining)
+roiTraining$ID = 1:nrow(roiTraining)
 
 # Retain only necessary columns: "ID" and "Name"
-roiTraining_df <- roiTraining[, c("ID", "Name")]
+roiTraining_df = roiTraining[, c("ID", "Name")]
 ```
 
 
 
 ```{r}
 # Convert roiTraining to a data frame if needed
-roiTraining_df <- as.data.frame(roiTraining_df)
+roiTraining_df = as.data.frame(roiTraining_df)
 
 # Merge extracted data with the ID and Name columns from roiTraining
-extractMerged <- dplyr::inner_join(extract, roiTraining_df, by = "ID")
+extractMerged = dplyr::inner_join(extract, roiTraining_df, by = "ID")
 
 # Verify the merged data
 head(extractMerged)
 
-na_counts <- sapply(extractMerged, function(x) sum(is.na(x)))
+na_counts = sapply(extractMerged, function(x) sum(is.na(x)))
 print(na_counts)
 
-extractMerged <- na.omit(extractMerged)
+extractMerged = na.omit(extractMerged)
 
-extractMerged <- extractMerged[extractMerged$Name != "UP", ]
-extractMerged$Name <- droplevels(extractMerged$Name)
+extractMerged = extractMerged[extractMerged$Name != "UP", ]
+extractMerged$Name = droplevels(extractMerged$Name)
 print(levels(extractMerged$Name))
 ```
 
 
-
+Splitting data into training (70%) and validation (30%) data
 
 ```{r}
 set.seed(1234) 
-trainIndex <- caret::createDataPartition(extractMerged$Name,list = FALSE,p=0.7)
-trainData <- extractMerged[trainIndex,]  # 70% for training Data
-testData <- extractMerged[-trainIndex,] # 30% for testing Data
+trainIndex = caret::createDataPartition(extractMerged$Name,list = FALSE,p=0.7)
+trainData = extractMerged[trainIndex,]  # 70% for training Data
+testData = extractMerged[-trainIndex,] # 30% for testing Data
 ```
 
 
 
 ```{r}
-classCount <- trainData %>%
+classCount = trainData %>%
   dplyr::group_by(Name) %>% 
   count()
 
@@ -343,7 +347,7 @@ print(head(trainData))
 
 ```{r}
 # Remove unused levels from the response variable in the training data
-trainData$Name <- droplevels(trainData$Name)
+trainData$Name = droplevels(trainData$Name)
 
 # Verify that "UP" is no longer a level
 levels(trainData$Name)
@@ -351,42 +355,44 @@ levels(trainData$Name)
 
 
 
+RF Model
+
 ```{r}
 # Initialize lists to store errors
-oob_errors <- list()
-test_errors <- list()
+oob_errors = list()
+test_errors = list()
 
 # Set values for number of trees and mtry to test
-tree_values <- c(10, 50, 100, 200, 500, 1000)  # Different values for number of trees
-mtry_values <- c(1, 2, 4, 6, 8, 10)  # Different values for mtry
+tree_values = c(10, 50, 100, 200, 500, 1000)  # Different values for number of trees
+mtry_values = c(1, 2, 4, 6, 8, 10)  # Different values for mtry
 
 # Remove the "ID" column from trainData and testData
-trainData_noID <- trainData[ , !names(trainData) %in% "ID"]
-testData_noID <- testData[ , !names(testData) %in% "ID"]
+trainData_noID = trainData[ , !names(trainData) %in% "ID"]
+testData_noID = testData[ , !names(testData) %in% "ID"]
 
 # Loop over each combination of trees and mtry values
 for (mtry_val in mtry_values) {
-  oob_error_list <- c()
-  test_error_list <- c()
+  oob_error_list = c()
+  test_error_list = c()
   
   for (tree_val in tree_values) {
     # Train Random Forest model with specific ntree and mtry values
-    rf_model <- randomForest(Name ~ ., data = trainData_noID, 
+    rf_model = randomForest(Name ~ ., data = trainData_noID, 
                              ntree = tree_val, mtry = mtry_val, importance = TRUE)
     
     # Get OOB error for the final model
-    oob_error <- rf_model$err.rate[tree_val, "OOB"] * 100  # Convert to percentage
-    oob_error_list <- c(oob_error_list, oob_error)
+    oob_error = rf_model$err.rate[tree_val, "OOB"] * 100  # Convert to percentage
+    oob_error_list = c(oob_error_list, oob_error)
     
     # Calculate test error
-    rf_predictions <- predict(rf_model, newdata = testData_noID)
-    test_error <- mean(rf_predictions != testData_noID$Name) * 100  # Convert to percentage
-    test_error_list <- c(test_error_list, test_error)
+    rf_predictions = predict(rf_model, newdata = testData_noID)
+    test_error = mean(rf_predictions != testData_noID$Name) * 100  # Convert to percentage
+    test_error_list = c(test_error_list, test_error)
   }
   
   # Store errors for each mtry value
-  oob_errors[[as.character(mtry_val)]] <- oob_error_list
-  test_errors[[as.character(mtry_val)]] <- test_error_list
+  oob_errors[[as.character(mtry_val)]] = oob_error_list
+  test_errors[[as.character(mtry_val)]] = test_error_list
 }
 
 # Print the final model summary
@@ -394,37 +400,23 @@ print(rf_model)
 ```
 
 
+Accuracy assessment
 
 ```{r}
 # Print the confusion matrix
-rf_predictions <- predict(rf_model, newdata = testData_noID)
+rf_predictions = predict(rf_model, newdata = testData_noID)
 confusionMatrix(rf_predictions, testData_noID$Name)
 ```
 
-ANNOTATE THIS SECTION BELOW AND OUTPUT A NEW VERSION OF THE FITTED MODEL TO BE THEN IMPORTED INTO THE PREDICTION SCRIPT.
 
+Saving RF model for prediction
 
 ```{r}
-# Save the rf_model object as an RData file
-save(rf_model, file = "test.RData")
-# writeRaster(predictors_stack, filename='predictors_stack.tif', overwrite=T)
-# raster::writeRaster(predictorStack, filename='predictorStack.tif', format='GTiff', overwrite=T)
-# writeRaster(predictorStack_terra, filename='predictorStack_terra.tif', overwrite=T)
+# # Save the rf_model object as an RData file
+# output_path <- "C:/Users/sza0209/OneDrive - Auburn University/Documents/MSc/Thesis/Study #1/rf_model.RData"
+# 
+# # Save the model
+# save(rf_model, file = output_path)
 ```
 
 
-
-I BROUGHT THIS OVER FROM THE PREDICTION SCRIPT, SO YOU MAY WANT TO CUT IT OUT AGAIN.
-
-```{r}
-# Generate predictions for the raster stack using the trained model
-names(predictors_stack)[names(predictors_stack) == "2024Nlcd"] <- "X2024Nlcd"
-# names(predictors_stack)[16] = 'X2024Nlcd'
-
-map <- terra::predict(predictorStack_terra, rf_model)
-
-writeRaster(map, 'jvClassificationModel.tif', overwrite=T)
-
-# Plot the predicted land cover map
-plot(map, main = "Predicted Land Cover Map")
-```
