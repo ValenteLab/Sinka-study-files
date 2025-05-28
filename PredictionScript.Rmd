@@ -49,6 +49,7 @@ Predictions
 
 ```{r}
 # Generate predictions for the raster stack using the trained model
+names(StackedPredictors)[names(StackedPredictors) == "2024Nlcd"] <- "X2024Nlcd"
 map <- terra::predict(StackedPredictors, rf_model, type = "response")
 
 # Plot the predicted land cover map
@@ -57,13 +58,6 @@ plot(map, main = "Predicted Land Cover Map")
 
 
 
-```{r}
-# Generate predictions for the raster stack using the trained model
-map2 <- terra::predict(StackedPredictors, rf_model, type = "response")
-
-# Plot the predicted land cover map
-plot(map2, main = "Predicted Land Cover Map")
-```
 
 
 
