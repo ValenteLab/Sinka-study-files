@@ -105,17 +105,18 @@ contrast_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "contras
 homogeneity_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "homogeneity")
 entropy_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "entropy")
 mean_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "mean")
-correlation_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "correlation")
+# correlation_texture = glcm(nir_band_raster, window = c(3, 3), statistics = "correlation")
 
 # Converting texture rasters back to SpatRaster
 contrast_texture = rast(contrast_texture)  
 homogeneity_texture = rast(homogeneity_texture)
 entropy_texture = rast(entropy_texture)
 mean_texture = rast(mean_texture)
-correlation_texture = rast(correlation_texture)
+# correlation_texture = rast(correlation_texture)
 
 #stacking texture indices
-texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_texture, correlation_texture)
+# texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_texture, correlation_texture)
+texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_texture)
 
 # Stacking the original bands and the indices together
 LandsatPredictors = c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
@@ -123,9 +124,14 @@ LandsatPredictors = c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture
 
 rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
 
-rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
+# rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
 
-names(LandsatPredictors) = c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation")
+rm(entropy_texture, mean_texture, homogeneity_texture, contrast_texture)
+
+
+# names(LandsatPredictors) = c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation")
+names(LandsatPredictors) = c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean")
+
 print(LandsatPredictors)
 ```
 
@@ -225,7 +231,7 @@ Stacking the predictors
 
 ```{r}
 predictors_stack = c(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm) 
-predictors_stack = predictors_stack[[-14]]
+# predictors_stack = predictors_stack[[-14]]
 
 rm(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm)
 rm(tcc, studyAreaElev)
@@ -245,11 +251,9 @@ shp_transformed = project(shp_vect, crs(predictors_stack))
 Exporting stacked predictors 
 
 ```{r}
-# exporting predictors_stack
-output_path <- "C:/Users/sza0209/OneDrive - Auburn University/Documents/MSc/Thesis/Study #1/StackedPredictors.tif"
 
 # Export the raster stack as a GeoTIFF
-writeRaster(predictors_stack, filename = output_path, overwrite = TRUE)
+# writeRaster(predictors_stack, filename = "StackedPredictors.tif", overwrite = TRUE)
 ```
 
 
@@ -412,11 +416,8 @@ confusionMatrix(rf_predictions, testData_noID$Name)
 Saving RF model for prediction
 
 ```{r}
-# # Save the rf_model object as an RData file
-# output_path <- "C:/Users/sza0209/OneDrive - Auburn University/Documents/MSc/Thesis/Study #1/rf_model.RData"
-# 
 # # Save the model
-# save(rf_model, file = output_path)
+# save(rf_model, file = 'rf_model.RData')
 ```
 
 
