@@ -26,8 +26,8 @@ Loading fitted model
 
 ```{r}
 # Download the file locally first
-download.file("https://github.com/ValenteLab/Sinka-study-files/raw/main/rf_model.RData", 
-              destfile = "rf_model.RData", mode = "wb")
+# download.file("https://github.com/ValenteLab/Sinka-study-files/raw/main/rf_model.RData", 
+#               destfile = "rf_model.RData", mode = "wb")
 
 # Now load the model
 load("rf_model.RData")
@@ -39,7 +39,8 @@ print(rf_model)
 Load stacked predictors
 
 ```{r}
-StackedPredictors = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/StackedPredictors.tif")
+# StackedPredictors = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/StackedPredictors.tif")
+StackedPredictors = rast("StackedPredictors.tif")
 print(StackedPredictors)
 ```
 
