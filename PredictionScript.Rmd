@@ -25,9 +25,9 @@ groundhog.library('caret', "2024-12-01")
 Loading fitted model
 
 ```{r}
-# Download the file locally first
-# download.file("https://github.com/ValenteLab/Sinka-study-files/raw/main/rf_model.RData", 
-#               destfile = "rf_model.RData", mode = "wb")
+#Download the file locally first
+download.file("https://github.com/ValenteLab/Sinka-study-files/raw/main/rf_model.RData",
+              destfile = "rf_model.RData", mode = "wb")
 
 # Now load the model
 load("rf_model.RData")
@@ -36,17 +36,18 @@ load("rf_model.RData")
 print(rf_model)
 ```
 
-Load stacked predictors
+
+Predictions
+
+2024 
 
 ```{r}
+#Load stacked predictors
 # StackedPredictors = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/StackedPredictors.tif")
 StackedPredictors = rast("StackedPredictors.tif")
 print(StackedPredictors)
 ```
 
-
-
-Predictions
 
 ```{r}
 # Generate predictions for the raster stack using the trained model
@@ -54,12 +55,28 @@ names(StackedPredictors)[names(StackedPredictors) == "2024Nlcd"] <- "X2024Nlcd"
 map <- terra::predict(StackedPredictors, rf_model, type = "response")
 
 # Plot the predicted land cover map
-plot(map, main = "Predicted Land Cover Map")
+plot(map, main = "2024 Predicted Land Cover Map")
 ```
 
 
 
+2008
 
+```{r}
+#Load stacked predictors
+StackedPredictors2008 = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/2008StackedPredictors.tif")
+print(StackedPredictors2008)
+```
+
+
+```{r}
+# Generate predictions for the raster stack using the trained model
+names(StackedPredictors2008) <- c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "USA_elv_msk", "X2024Nlcd", "TCC2021")
+map <- terra::predict(StackedPredictors2008, rf_model, type = "response")
+
+# Plot the predicted land cover map
+plot(map, main = "2008 Predicted Land Cover Map")
+```
 
 
 
