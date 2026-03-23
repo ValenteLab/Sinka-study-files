@@ -1,1 +1,1 @@
-test 123
+**A Landsat-based alternative to adaptive management**
