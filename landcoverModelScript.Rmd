@@ -27,7 +27,10 @@ groundhog.library('raster', '2024-12-01')
 Loading study area shapefile
 
 ```{r}
+# Loading the study area shapefile
 studyArea = st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/studyArea.shp")
+
+# plotting the study area shapefile
 plot(st_geometry(studyArea))
 ```
 
@@ -36,6 +39,7 @@ plot(st_geometry(studyArea))
 Loading field data
 
 ```{r}
+# Loading the field data
 shp = st_read("/vsicurl/https://github.com/sza0209/Sinka-study-files/raw/refs/heads/main/trainingData.shp")
 
 plot(st_geometry(shp))        # To plot the spatial data
@@ -67,6 +71,7 @@ lowerLandsatData = rast("/vsicurl/https://github.com/sza0209/Sinka-study-files/r
 # Mosaic the two rasters
 mosaickedLandsat = mosaic(upperLandsatData, lowerLandsatData)
 
+# renaming the mosaickedLandsat data to just landsat
 landsat = mosaickedLandsat
 
 # Extracting the necessary Landsat bands (blue = band 2, green = band 3, red = band 4, nir = band 5)
@@ -121,17 +126,15 @@ texture_stack = c(contrast_texture, homogeneity_texture, entropy_texture, mean_t
 # Stacking the original bands and the indices together
 LandsatPredictors = c(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
 
-
+# removing rasters to avoid space issues
 rm(blue, green, red, nir, ndvi, savi, evi, gcvi, bai, texture_stack)
-
-# rm(entropy_texture, mean_texture, correlation_texture, homogeneity_texture, contrast_texture)
 
 rm(entropy_texture, mean_texture, homogeneity_texture, contrast_texture)
 
-
-# names(LandsatPredictors) = c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean", "correlation")
+# naming predictors
 names(LandsatPredictors) = c("Blue", "Green", "Red", "NIR", "NDVI", "SAVI", "EVI", "GCVI", "BAI", "contrast", "homogeneity", "entropy", "mean")
 
+# printing landsat predictors
 print(LandsatPredictors)
 ```
 
@@ -140,10 +143,12 @@ print(LandsatPredictors)
 Getting Elevation Data for study area
 
 ```{r}
+# getting shapefile for US states and subsetting to just Alabam
 states_data = states(cb = TRUE)
 alabama = states_data %>% 
   filter(NAME == 'Alabama')
 
+# getting US elevation data and cropping out elevation for the state of Alabama
 usaElev = elevation_30s(country='USA', path=tempdir())
 alabama = st_transform(alabama, st_crs(usaElev))
 alabamaElev = crop(usaElev, alabama)
@@ -151,12 +156,14 @@ alabamaElev = crop(usaElev, alabama)
 # Reprojecting studyArea to match the CRS of usaElev
 studyArea = st_transform(studyArea, crs(usaElev))
 
-# Masking
+# Masking Alabama elevation to just the study area
 studyAreaElev = mask(alabamaElev, studyArea)
 
+# plotting the elevation of our study area
 plot(studyAreaElev)
 summary(studyAreaElev)
 
+# removing alabama elevation
 rm(alabamaElev)
 ```
 
@@ -165,8 +172,11 @@ rm(alabamaElev)
 Getting nlcd and tcc data for study area
 
 ```{r}
+# pulling in and plotting NLCD data for our study area from github
 nlcd = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/2024Nlcd.tif")
 plot(nlcd)
+
+# pulling in and plotting tree canopy data (TCC) data for our study area from github
 tcc = rast("/vsicurl/https://github.com/ValenteLab/Sinka-study-files/raw/refs/heads/main/TCC2021.tif")
 plot(tcc)
 ```
@@ -176,6 +186,7 @@ plot(tcc)
 Reprojecting the rasters to the same coordinate system (UTM)
 
 ```{r}
+# setting the coordinate system
 utm_crs = "EPSG:32616"
 
 # Reprojecting the study area to UTM
@@ -184,7 +195,7 @@ studyArea_utm = st_transform(studyArea, crs = utm_crs)
 # Checkng CRS of the study area after transformation
 print(st_crs(studyArea_utm))
 
-# Reprojectng the rasters to UTM
+# Reprojecting all the rasters to UTM
 landsat_utm = project(landsat, utm_crs)
 studyAreaElev = project(studyAreaElev, utm_crs)
 tcc_utm = project(tcc, utm_crs)
@@ -196,8 +207,10 @@ nlcd_utm = project(nlcd, utm_crs, method = "near")
 Aligning all rasters to the same extent
 
 ```{r}
+# setting the common extent using the landsat data
 common_extent = ext(landsat_utm)
 
+# Aligning all the rasters to the same extent
 studyAreaElev_aligned = crop(studyAreaElev, common_extent)
 studyAreaElev_aligned = resample(studyAreaElev_aligned, landsat_utm)
 
@@ -209,6 +222,7 @@ tcc_utm = crop(tcc_utm, common_extent)
 tcc_utm = resample(tcc_utm, landsat_utm)
 tcc_utm = round(tcc_utm)
 
+# checking the final extents
 ext(nlcd_aligned)
 ext(landsat_utm)
 ext(studyAreaElev_aligned)
@@ -218,6 +232,7 @@ ext(LandsatPredictors)
 
 
 ```{r}
+# Checking the values of NLCD and TCC data to make sure they were categorical and continuous respectively
 unique_vals = unique(values(nlcd_aligned))
 print(unique_vals)
 
@@ -230,9 +245,10 @@ print(unique_vals)
 Stacking the predictors
 
 ```{r}
+# Stacking all our predictors into one multiband raster
 predictors_stack = c(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm) 
 # predictors_stack = predictors_stack[[-14]]
-
+# removing all the individual predictors after stacking
 rm(LandsatPredictors, studyAreaElev_aligned, nlcd_aligned, tcc_utm)
 rm(tcc, studyAreaElev)
 rm(landsat, landsat_utm, lowerLandsatData, mosaickedLandsat)
@@ -244,14 +260,13 @@ shp_vect = vect(shp)
 print(crs(shp_vect))
 print(crs(predictors_stack))
 
-# Transform the CRS of the shapefile to match the raster stack
+# Transforming the CRS of the shapefile to match the raster stack
 shp_transformed = project(shp_vect, crs(predictors_stack))
 ```
 
 Exporting stacked predictors 
 
 ```{r}
-
 # Export the raster stack as a GeoTIFF
 # writeRaster(predictors_stack, filename = "StackedPredictors.tif", overwrite = TRUE)
 ```
@@ -261,12 +276,13 @@ Exporting stacked predictors
 Model building
 
 ```{r}
+# setting the predictors
 predictorStack = raster::stack(predictors_stack)
 print(predictorStack)  
 predictorStack@layers[[15]] = as.factor(predictorStack@layers[[15]])
 # predictorStack = dropLayer(predictorStack, 14)
 
-
+# setting the training data
 roiTraining = shp_transformed
 
 #converting Class to factor(to assign levels to the response)
@@ -274,16 +290,16 @@ roiTraining$Name = as.factor(roiTraining$Name)
 ```
 
 
-Removing unwanted class from training data
 
 ```{r}
+# Removing unwanted class from training data
 roiTraining = roiTraining[roiTraining$Name != "UP", ]
 unique(roiTraining$Name)
 ```
 
-Extracting raster values for training and validation data
 
 ```{r}
+# Extracting raster values for training and validation data
 predictorStack_terra = terra::rast(predictorStack)
 predictorStack_terra$X2024Nlcd = as.factor(predictorStack_terra$X2024Nlcd)
 extract = terra::extract(predictorStack_terra, roiTraining)
@@ -291,19 +307,18 @@ head(extract)
 ```
 
 
-
 ```{r}
-# Add an ID column to roiTraining based on row numbers
+# Adding an ID column to roiTraining based on row numbers
 roiTraining$ID = 1:nrow(roiTraining)
 
-# Retain only necessary columns: "ID" and "Name"
+# Retaining only necessary columns: "ID" and "Name"
 roiTraining_df = roiTraining[, c("ID", "Name")]
 ```
 
 
 
 ```{r}
-# Convert roiTraining to a data frame if needed
+# Convert roiTraining to a data frame
 roiTraining_df = as.data.frame(roiTraining_df)
 
 # Merge extracted data with the ID and Name columns from roiTraining
@@ -323,9 +338,9 @@ print(levels(extractMerged$Name))
 ```
 
 
-Splitting data into training (70%) and validation (30%) data
 
 ```{r}
+# Splitting data into training (70%) and validation (30%) data
 set.seed(1234) 
 trainIndex = caret::createDataPartition(extractMerged$Name,list = FALSE,p=0.7)
 trainData = extractMerged[trainIndex,]  # 70% for training Data
@@ -335,6 +350,7 @@ testData = extractMerged[-trainIndex,] # 30% for testing Data
 
 
 ```{r}
+# checking the number of pixels/ training data in each land cover class
 classCount = trainData %>%
   dplyr::group_by(Name) %>% 
   count()
@@ -345,6 +361,7 @@ print(classCount)
 
 
 ```{r}
+# printing training data
 print(head(trainData))
 ```
 
@@ -358,8 +375,7 @@ levels(trainData$Name)
 ```
 
 
-
-RF Model
+Building the RF Model
 
 ```{r}
 # Initialize lists to store errors
