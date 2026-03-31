@@ -1,0 +1,868 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Sinka Khadijah Abubakar</origin>
+        <pubdate>2026</pubdate>
+        <title>Multi-source geospatial dataset supporting random forest land cover classification in Alabama Wildlife Management Areas from 2008 to 2024</title>
+        <geoform>remote-sensing image</geoform>
+        <onlink>https://github.com/ValenteLab/Sinka-study-files</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset contains geospatial data compiled and generated to support supervised land cover classification and habitat monitoring across nine Wildlife Management Areas (WMAs) in Alabama. The dataset integrates Landsat 9 surface reflectance imagery acquired between May and July 2024, the 2021 National Land Cover Database (NLCD), NLCD-derived Tree Canopy Cover (TCC), a stacked predictor raster, and field-collected training and validation data. 
+Landsat imagery was used to derive spectral bands, vegetation indices, and texture metrics that were combined into a multiband predictor raster stack used as input to a machine learning classification model. The NLCD and TCC layers were incorporated as additional environmental predictors and for comparison with model outputs. Field data were collected within WMAs to provide labeled training and independent validation samples representing major land cover classes. All raster datasets were reprojected to a common coordinate system, resampled to a consistent spatial resolution, and spatially aligned prior to stacking. The predictor stack represents the final set of variables used in model training and prediction. Wildlife Management Area boundary shapefiles were used to define the spatial extent of all analyses. This dataset supports reproducible land cover classification workflows and landscape-scale ecological analysis across protected lands in Alabama.</abstract>
+      <purpose>The purpose of this dataset is to provide a complete and spatially consistent set of remote sensing, environmental, and field reference data for developing and evaluating supervised land cover classification models within Alabama’s Wildlife Management Areas. The dataset was assembled to support machine learning–based mapping of habitat conditions and to evaluate the utility of satellite-derived predictors as an alternative to traditional field-based monitoring in adaptive management programs.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20240501</begdate>
+          <enddate>20240731</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Alabama</descgeog>
+      <bounding>
+        <westbc>-88.4700</westbc>
+        <eastbc>-84.8900</eastbc>
+        <northbc>35.0100</northbc>
+        <southbc>30.1900</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>boundaries</themekey>
+        <themekey>location</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Geospatial</themekey>
+      </theme>
+    </keywords>
+    <accconst>No access constraints. Please see 'Distribution Information' for details.</accconst>
+    <useconst>These data are marked with a Creative Commons Zero v1.0 Universal (CC0-1.0) public domain dedication and do not have any use constraints. Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>602 Duncan drive</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36849</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sza0209@auburn.edu</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>Alabama Department of Conservation and Natural Resources</datacred>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Attribute accuracy varies among dataset components and reflects the original production and validation methods of each source. Landsat surface reflectance imagery was obtained from U.S. Geological Survey (USGS) Collection 2 Tier 1 products and represents atmospherically corrected reflectance values derived using standardized processing algorithms. NLCD 2021 land cover and tree canopy cover layers were produced and validated by the Multi-Resolution Land Characteristics (MRLC) Consortium using nationally consistent classification procedures and accuracy assessment protocols.
+
+The stacked predictor raster was generated by combining spectral bands, derived vegetation indices, and ancillary layers using validated mathematical formulas. Field-collected training and validation data were recorded using handheld GPS units and classified in situ based on observed vegetation structure and land use. Attribute values in the training dataset represent direct field observations and were reviewed for consistency prior to model training. No attribute values from source datasets were altered beyond standard reprojection and stacking processes.</attraccr>
+    </attracc>
+    <logic>All spatial datasets were evaluated to ensure both internal consistency and alignment across layers. Raster datasets were checked for consistent cell size, coordinate reference system, and pixel alignment prior to stacking. Predictor rasters were verified to ensure that derived indices were calculated correctly and that no invalid or out-of-range values were introduced during processing.</logic>
+    <complete>The dataset includes all spatial layers required to replicate the land cover classification workflow within the defined study area. Landsat imagery was selected to provide complete coverage of the nine Wildlife Management Areas with minimal cloud contamination. Predictor raster stacks include all bands and derived indices used in model training, and no predictor layers were omitted from the final stack. Field training and validation data include representative samples of major land cover classes observed within the study area at the time of collection. No known spatial gaps exist within the raster datasets after clipping to the WMA boundaries, and missing data values are retained only in areas affected by cloud cover or sensor limitations.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Landsat 9 Collection 2 Surface Reflectance Tier 1 imagery was accessed through Google Earth Engine (GEE), filtered for &lt;10% cloud cover, and exported as GeoTIFF files for the study area covering Wildlife Management Areas in Alabama. The imagery, acquired between 202405 and 202407, was composited in GEE using the median of available cloud-free pixels. After export, all raster bands were imported into R, where spectral indices including NDVI, SAVI, and EVI were calculated using raster-based band math. Processed layers were stacked, rescaled to a 0–1 range, and reprojected to NAD 1983 UTM Zone 16N for use in supervised land cover classification.</procdesc>
+        <procdate>20240801</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Sinka Khadijah Abubakar</cntper>
+              <cntorg>Auburn University</cntorg>
+            </cntperp>
+            <cntpos>Graduate Student</cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>602 Duncan drive</address>
+              <city>Auburn</city>
+              <state>AL</state>
+              <postal>36849</postal>
+              <country>United States</country>
+            </cntaddr>
+            <cntvoice>334-748-2378</cntvoice>
+            <cntemail>sza0209@auburn.edu</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+      <procstep>
+        <procdesc>NLCD 2021 Land Cover (30 m) raster data were downloaded from the Multi-Resolution Land Characteristics (MRLC) Consortium website. The original CONUS layer was imported into ArcGIS Pro and clipped to the extent of Alabama’s Wildlife Management Areas. The raster was reprojected to match the coordinate system used in the project (NAD 1983 UTM Zone 16N), and class values were retained as published. No reclassification or resampling was performed. The resulting raster was used alongside Landsat and field-derived data in the classification model.</procdesc>
+        <procdate></procdate>
+      </procstep>
+      <procstep>
+        <procdesc>The NLCD 2021 Tree Canopy Cover raster was downloaded from the Multi-Resolution Land Characteristics (MRLC) Consortium. The dataset was imported into ArcGIS Pro and clipped to the extent of Wildlife Management Areas in Alabama. The raster was reprojected to NAD 1983 UTM Zone 16N to match other input layers. Pixel values representing canopy cover as a percentage (0–100) were retained without reclassification. The processed raster was exported for use as a continuous predictor variable in land cover classification modeling.</procdesc>
+        <procdate></procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Stacked predictors: indices (NDVI, EVI, SAVI, GCVI, BAI) were calculated using standard band math. GLCM texture metrics (contrast, mean, homogeneity, entropy, correlation) were computed from the NIR band using a moving window. Elevation data were clipped from SRTM DEM. NLCD 2021 land cover and TCC rasters were clipped and reprojected to match spatial resolution and extent. All layers were resampled to 30-meter resolution, normalized (where appropriate), and stacked into a single multiband raster. Final stack is projected in NAD 1983 UTM Zone 16N.</procdesc>
+        <procdate>20240801</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Sinka Khadijah Abubakar</cntper>
+              <cntorg>Auburn University</cntorg>
+            </cntperp>
+            <cntpos>Graduate Student</cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>602 Duncan drive</address>
+              <city>Auburn</city>
+              <state>AL</state>
+              <postal>36849</postal>
+              <country>United States</country>
+            </cntaddr>
+            <cntvoice>334-748-2378</cntvoice>
+            <cntemail>sza0209@auburn.edu</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+      <procstep>
+        <procdesc>The Wildlife Management Area (WMA) boundary shapefile was obtained from the Alabama Department of Conservation and Natural Resources (ADCNR) in 2024. The dataset was imported into ArcGIS Pro. Attribute fields were reviewed and standardized to include WMA name, area (acres), and administrative region. Polygons were checked for topological consistency using the ArcGIS topology rules “Must Not Overlap” and “Must Not Have Gaps.” The shapefile was then clipped to the study extent and saved for integration with training and validation datasets.</procdesc>
+        <procdate></procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Field data were collected during the summer of 2024 across selected Wildlife Management Areas in Alabama. Observers recorded dominant land cover types, vegetation characteristics, and site conditions using handheld GPS units and field data sheets. Based on these field observations, training and validation polygons were manually digitized in Google Earth using high-resolution satellite imagery to delineate homogeneous land cover patches. The digitized files were then imported into ArcGIS Pro, where they were converted to polygon shapefiles and attributed with land cover class labels consistent with field observations. Topological rules were applied in ArcGIS to ensure spatial integrity. Attribute values were reviewed for consistency and correctness. Final shapefiles were exported and used in the supervised classification model for land cover mapping.</procdesc>
+        <procdate>20240801</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Sinka Khadijah Abubakar</cntper>
+              <cntorg>Auburn University</cntorg>
+            </cntperp>
+            <cntpos>Graduate Student</cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>602 Duncan drive</address>
+              <city>Auburn</city>
+              <state>AL</state>
+              <postal>36849</postal>
+              <country>United States</country>
+            </cntaddr>
+            <cntvoice>334-748-2378</cntvoice>
+            <cntemail>sza0209@auburn.edu</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Vector</direct>
+    <ptvctinf>
+      <sdtsterm>
+        <sdtstype>G-polygon</sdtstype>
+        <ptvctcnt>9</ptvctcnt>
+      </sdtsterm>
+    </ptvctinf>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <planar>
+        <gridsys>
+          <gridsysn>Universal Transverse Mercator</gridsysn>
+          <utm>
+            <utmzone>16</utmzone>
+            <transmer>
+              <sfctrmer>0.9996</sfctrmer>
+              <longcm>-87.0</longcm>
+              <latprjo>0.0</latprjo>
+              <feast>500000.0</feast>
+              <fnorth>0.0</fnorth>
+            </transmer>
+          </utm>
+        </gridsys>
+        <planci>
+          <plance>coordinate pair</plance>
+          <coordrep>
+            <absres>0.6096</absres>
+            <ordres>0.6096</ordres>
+          </coordrep>
+          <plandu>meters</plandu>
+        </planci>
+      </planar>
+      <geodetic>
+        <horizdn>WGS_1984</horizdn>
+        <ellips>WGS 84</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>2024LandsatImage.tif</enttypl>
+        <enttypd>8 band raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.0</rdommin>
+            <rdommax>52058.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>2024Nlcd.tif</enttypl>
+        <enttypd>Raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>OID</attrlabl>
+        <attrdef>Internal object identifier.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>11</rdommin>
+            <rdommax>95</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Count</attrlabl>
+        <attrdef>Number of raster cells with this value.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>9.0</rdommin>
+            <rdommax>431873.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Red</attrlabl>
+        <attrdef>Red band</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>28</rdommin>
+            <rdommax>235</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Green</attrlabl>
+        <attrdef>Green band</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>223</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Blue</attrlabl>
+        <attrdef>Blue band</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>235</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Opacity</attrlabl>
+        <attrdef>Opacity</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>255</rdommin>
+            <rdommax>255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>NLCD_Land_</attrlabl><attrdef>NLCD land cover class</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>Open Water</edomv>
+      <edomvd>Open Water</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, Open Space</edomv>
+      <edomvd>Developed, Open Space</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, Low Intensity</edomv>
+      <edomvd>Developed, Low Intensity</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, Medium Intensity</edomv>
+      <edomvd>Developed, Medium Intensity</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Developed, High Intensity</edomv>
+      <edomvd>Developed, High Intensity</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Barren Land</edomv>
+      <edomvd>Barren Land</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Deciduous Forest</edomv>
+      <edomvd>Deciduous Forest</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Evergreen Forest</edomv>
+      <edomvd>Evergreen Forest</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Mixed Forest</edomv>
+      <edomvd>Mixed Forest</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Shrub/Scrub</edomv>
+      <edomvd>Shrub/Scrub</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Herbaceous</edomv>
+      <edomvd>Herbaceous</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Hay/Pasture</edomv>
+      <edomvd>Hay/Pasture</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Cultivated Crops</edomv>
+      <edomvd>Cultivated Crops</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Woody Wetlands</edomv>
+      <edomvd>Woody Wetlands</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Emergent Herbaceous Wetlands</edomv>
+      <edomvd>Emergent Herbaceous Wetlands</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>TCC2021.tif</enttypl>
+        <enttypd>Raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>OID</attrlabl>
+        <attrdef>Internal object identifier.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>100</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Count</attrlabl>
+        <attrdef>Number of raster cells with this value.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1.0</rdommin>
+            <rdommax>42880.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Red</attrlabl>
+        <attrdef>Red band</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>27</rdommin>
+            <rdommax>255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Green</attrlabl>
+        <attrdef>Green band</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>157</rdommin>
+            <rdommax>255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Blue</attrlabl>
+        <attrdef>Blue band</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>12</rdommin>
+            <rdommax>255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>StackedPredictors.tif</enttypl>
+        <enttypd>16 band raster geospatial data file.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Value</attrlabl>
+        <attrdef>Unique numeric values contained in each raster cell.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-23365.0</rdommin>
+            <rdommax>34061.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>trainingData.shp Attribute Table</enttypl>
+        <enttypd>Table containing attribute information associated with the data set.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>FID</attrlabl>
+        <attrdef>Internal feature number.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Shape</attrlabl>
+        <attrdef>Feature geometry.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Shape type.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Name</attrlabl><attrdef>Land cover classes</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>DA</edomv>
+      <edomvd>Disturbed area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>YH</edomv>
+      <edomvd>Young hardwood</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>EAH</edomv>
+      <edomvd>Even aged hardwood</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>UAH</edomv>
+      <edomvd>Uneven aged hardwood</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>OP</edomv>
+      <edomvd>Openings</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>EAP</edomv>
+      <edomvd>Even aged pine</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>YP</edomv>
+      <edomvd>Young pine</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>UAP</edomv>
+      <edomvd>Uneven aged pine</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>UP</edomv>
+      <edomvd>Uneven aged pine</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>W</edomv>
+      <edomvd>Wetlands</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>MPH</edomv>
+      <edomvd>Mixed pine hardwoods</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>WA</edomv>
+      <edomvd>Water</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+  <attrlabl>FolderPath</attrlabl><attrdef>Training data</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>trainingData.kml/trainingData</edomv>
+      <edomvd>Training data</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+        <attrlabl>SymbolID</attrlabl>
+        <attrdef>Identification number</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AltMode</attrlabl>
+        <attrdef>AltMode</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Base</attrlabl>
+        <attrdef>Base</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.0</rdommin>
+            <rdommax>0.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Clamped</attrlabl>
+        <attrdef>Clamped</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-1</rdommin>
+            <rdommax>-1</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Extruded</attrlabl>
+        <attrdef>Extruded</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Snippet</attrlabl><attrdef>Snippet</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
+      <edomvd>&lt;&lt; empty cell &gt;&gt;</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+  <attrlabl>PopupInfo</attrlabl><attrdef>PopupInfo</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
+      <edomvd>&lt;&lt; empty cell &gt;&gt;</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+        <attrlabl>Shape_Leng</attrlabl>
+        <attrdef>Shape_Leng</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.000809938170977</rdommin>
+            <rdommax>0.0255740546435</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Shape_Area</attrlabl>
+        <attrdef>Shape_Area</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2.90352171947e-08</rdommin>
+            <rdommax>3.87033010666e-05</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>studyArea.shp Attribute Table</enttypl>
+        <enttypd>Table containing attribute information associated with the data set.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>FID</attrlabl>
+        <attrdef>Internal feature number.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Sequential unique whole numbers that are automatically generated.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Shape</attrlabl>
+        <attrdef>Feature geometry.</attrdef>
+        <attrdefs>ESRI</attrdefs>
+        <attrdomv>
+          <udom>Shape type.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Name</attrlabl><attrdef>Wildlife Management Areas</attrdef><attrdefs>Producer Defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>Barbour</edomv>
+      <edomvd>Barbour Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Freedom Hills</edomv>
+      <edomvd>Freedom Hills Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Lauderdale</edomv>
+      <edomvd>Lauderdale Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Perdido River</edomv>
+      <edomvd>Perdido River Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Red Hills</edomv>
+      <edomvd>Red Hills Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Autauga</edomv>
+      <edomvd>Autauga Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Skyline</edomv>
+      <edomvd>Skyline Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Upper State</edomv>
+      <edomvd>Upper State Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Fred T. Stimpson</edomv>
+      <edomvd>Fred T. Stimpson Wildlife Management Area</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+        <attrlabl>Acres</attrlabl>
+        <attrdef>Area in acres</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1918.2506412</rdommin>
+            <rdommax>60006.9533296</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey - ScienceBase</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center</address>
+          <address>Building 810</address>
+          <address>Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://github.com/ValenteLab/Sinka-study-files</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20260330</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Sinka Khadijah Abubakar</cntper>
+          <cntorg>Auburn University</cntorg>
+        </cntperp>
+        <cntpos>Graduate Student</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>602 Duncan drive</address>
+          <city>Auburn</city>
+          <state>AL</state>
+          <postal>36849</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>334-748-2378</cntvoice>
+        <cntemail>sza0209@auburn.edu</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>
